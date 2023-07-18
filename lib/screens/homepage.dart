@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
+const Homepage({super.key});
+
   @override
   State<Homepage> createState() => _HomepageState();
 }
@@ -32,7 +34,6 @@ class _HomepageState extends State<Homepage> {
                     validator: (value) {
                       if (value == null ||
                           value.isEmpty ||
-                          value.trim().length < 1 ||
                           value.trim().length > 50) {
                         return 'Please enter a search term between 1 and 50 characters';
                       }
