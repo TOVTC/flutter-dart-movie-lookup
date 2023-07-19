@@ -5,6 +5,8 @@ import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../widgets/options_drawer.dart';
+
 class SearchResults extends StatefulWidget {
   const SearchResults({
     super.key,
@@ -25,9 +27,6 @@ class _SearchResultsState extends State<SearchResults> {
   List<MovieOption> searchResults = [];
 
   void _search() async {
-
-    
-
     // search for a term
     final url = Uri.https('api.themoviedb.org', '/3/search/movie', {
       'api_key': dotenv.env['API_KEY'],
@@ -62,14 +61,23 @@ class _SearchResultsState extends State<SearchResults> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Movie Lookup',
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
+        title: const Row(
+          children: [
+            Icon(Icons.movie_creation),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Movie Lookup',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
+      drawer: OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(

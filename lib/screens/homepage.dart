@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -15,14 +16,23 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Movie Lookup',
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
+        title: const Row(
+          children: [
+            Icon(Icons.movie_creation),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Movie Lookup',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
+      drawer: OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
