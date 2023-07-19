@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
-const Homepage({super.key});
+  const Homepage({super.key});
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -15,7 +15,13 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Movie Lookup'),
+        title: const Text(
+          'Movie Lookup',
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),

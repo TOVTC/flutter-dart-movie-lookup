@@ -12,18 +12,42 @@ class SearchResults extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Movie Lookup'),
+        title: const Text(
+          'Movie Lookup',
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Search Results:'),
+            const Text(
+              'Search Results:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 15),
             Expanded(
               child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (ctx, index) => Text(searchTerm, key: ValueKey(index)),
+                itemCount: 3,
+                itemBuilder: (ctx, index) => GestureDetector(
+                  onTap: () {
+                    print('Tapped!');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      searchTerm,
+                      key: ValueKey(index),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
