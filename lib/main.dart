@@ -19,7 +19,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const SearchResults(searchTerm: 'test'),
+      home: const SearchResults(searchTerm: 'avengers'),
     );
   }
 }

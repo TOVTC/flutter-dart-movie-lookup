@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +18,9 @@ class SearchResults extends StatefulWidget {
 }
 
 class _SearchResultsState extends State<SearchResults> {
-  void _test() async {
+  List<MovieOption> searchResults = [];
+
+  void _search() async {
     final url = Uri.https('api.themoviedb.org', '/3/search/movie', {
       'api_key': dotenv.env['API_KEY'],
       'language': 'en-US',
@@ -23,14 +28,25 @@ class _SearchResultsState extends State<SearchResults> {
       'page': '1',
       'include_adult': 'false'
     });
-    print('getting');
-    print(await http.get(url));
+
+    final response = await http.get(url);
+    final decoded = json.decode(response.body);
+    for (final movie in decoded['results']) {
+      searchResults.add(
+        MovieOption(
+          id: movie['id'],
+          title: movie['title'],
+          releaseDate: movie['release_date'],
+        ),
+      );
+    }
+    print(searchResults[0].title);
   }
 
   @override
   void initState() {
     super.initState();
-    _test();
+    _search();
   }
 
   @override
@@ -60,15 +76,15 @@ class _SearchResultsState extends State<SearchResults> {
             const SizedBox(height: 15),
             Expanded(
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: searchResults.length,
                 itemBuilder: (ctx, index) => GestureDetector(
                   onTap: () {
-                    print(dotenv.env['API_KEY']);
+                    print(searchResults[index].id);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      widget.searchTerm,
+                      '${searchResults[index].title} (${searchResults[index].releaseDate.split('-')[0]})',
                       key: ValueKey(index),
                     ),
                   ),
