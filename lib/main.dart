@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
 import 'package:flutter_dart_movie_lookup/screens/search_results.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
 );
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const App());
 }
 

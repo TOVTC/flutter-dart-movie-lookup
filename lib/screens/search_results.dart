@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SearchResults extends StatelessWidget {
   const SearchResults({
@@ -38,7 +39,7 @@ class SearchResults extends StatelessWidget {
                 itemCount: 3,
                 itemBuilder: (ctx, index) => GestureDetector(
                   onTap: () {
-                    print('Tapped!');
+                    print(dotenv.env['API_KEY']);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),
