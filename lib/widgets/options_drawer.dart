@@ -26,45 +26,42 @@ class OptionsDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Row(
-              children: [
-                Icon(Icons.trending_up),
-                SizedBox(width: 10),
-                Text(
+            ListTile(
+                leading: const Icon(Icons.trending_up),
+                title: const Text(
                   'Trending',
                   style: TextStyle(fontSize: 20),
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Row(
-              children: [
-                Icon(Icons.thumb_up),
-                SizedBox(width: 10),
-                Text('Popular',
+                onTap: () {
+                  print('Trending');
+                }),
+            ListTile(
+                leading: const Icon(Icons.thumb_up),
+                title: const Text(
+                  'Popular',
                   style: TextStyle(fontSize: 20),
                 ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Row(
-              children: [
-                Icon(Icons.star),
-                SizedBox(width: 10),
-                Text('Top Rated',
-                  style: TextStyle(fontSize: 20),),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Row(
-              children: [
-                Icon(Icons.play_arrow),
-                SizedBox(width: 10),
-                Text('Now Playing',
-                  style: TextStyle(fontSize: 20),),
-              ],
-            ),
+                onTap: () {
+                  print('Popular');
+                }),
+            ListTile(
+                leading: const Icon(Icons.star),
+                title: const Text(
+                  'Top Rated',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  print('Top Rated');
+                }),
+            ListTile(
+                leading: const Icon(Icons.play_arrow),
+                title: const Text(
+                  'Now Playing',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  print('Now Playing');
+                }),
           ],
         ),
       ),
