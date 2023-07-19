@@ -8,10 +8,14 @@ import 'package:http/http.dart' as http;
 class SearchResults extends StatefulWidget {
   const SearchResults({
     super.key,
-    required this.searchTerm,
+    this.searchTerm,
+    required this.pageTitle,
+    required this.getFilms,
   });
 
-  final String searchTerm;
+  final String? searchTerm;
+  final String pageTitle;
+  final void Function() getFilms;
 
   @override
   State<SearchResults> createState() => _SearchResultsState();
@@ -21,6 +25,10 @@ class _SearchResultsState extends State<SearchResults> {
   List<MovieOption> searchResults = [];
 
   void _search() async {
+
+    
+
+    // search for a term
     final url = Uri.https('api.themoviedb.org', '/3/search/movie', {
       'api_key': dotenv.env['API_KEY'],
       'language': 'en-US',
@@ -41,6 +49,7 @@ class _SearchResultsState extends State<SearchResults> {
       );
     }
     print(searchResults[0].title);
+    widget.getFilms();
   }
 
   @override
@@ -66,9 +75,9 @@ class _SearchResultsState extends State<SearchResults> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Search Results:',
-              style: TextStyle(
+            Text(
+              widget.pageTitle,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
