@@ -40,13 +40,7 @@ class _ResultsState extends State<Results> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (ctx) => MovieDetails(
-                      url: Uri.https(
-                        'api.themoviedb.org',
-                        '3/movie/${widget.searchResults[index].id}',
-                        {
-                          'api_key': dotenv.env['API_KEY'],
-                        },
-                      ),
+                      movieId: widget.searchResults[index].id,
                     ),
                   ),
                 );
