@@ -21,7 +21,6 @@ class MovieDetails extends StatefulWidget {
 
 class _MovieDetailsState extends State<MovieDetails> {
   Movie? movie;
-  var content = 'nothing';
 
   void _getDetails() async {
     final url = Uri.https(
@@ -35,19 +34,20 @@ class _MovieDetailsState extends State<MovieDetails> {
     final decoded = json.decode(response.body);
     setState(() {
       movie = Movie(
-          id: decoded['id'],
-          title: decoded['title'],
-          originalTitle: decoded['original_title'],
-          posterPath: decoded['poster_path'],
-          language: decoded['original_language'],
-          releaseDate: decoded['release_date'],
-          runtime: decoded['runtime'],
-          tagline: decoded['tagline'],
-          homepage: decoded['homepage'],
-          overview: decoded['overview'],
-          genres: ['genre'],
-          languages: ['language'],
-          productionCompanies: ['company']);
+        id: decoded['id'],
+        title: decoded['title'] ?? '',
+        originalTitle: decoded['original_title'] ?? '',
+        posterPath: decoded['poster_path'] ?? '',
+        language: decoded['original_language'] ?? '',
+        releaseDate: decoded['release_date'] ?? '',
+        runtime: decoded['runtime'] ?? '',
+        tagline: decoded['tagline'] ?? '',
+        homepage: decoded['homepage'] ?? '',
+        overview: decoded['overview'] ?? '',
+        genres: ['genre'],
+        languages: ['language'],
+        productionCompanies: ['company'],
+      );
     });
   }
 
@@ -59,6 +59,55 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   @override
   Widget build(BuildContext context) {
+    Widget content = const Text('Loading...');
+
+    if (movie != null) {
+      content = Column(
+        children: [
+          Text(
+            movie!.title,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Semantics(
+            label: '${movie!.title} movie poster',
+            child: movie!.posterPath != ''
+                ? Image.network(
+                    'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                    width: 200,
+                  )
+                : Image.asset(
+                    './assets/favicon.png',
+                    width: 200,
+                  ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Text(
+                      '"${movie!.tagline}"',
+                      style: const TextStyle(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 15),
+                    Text('Release Date - ${movie!.releaseDate}',),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Row(
@@ -80,11 +129,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            Text(movie != null ? movie!.title.toString() : 'loading...'),
-          ],
-        ),
+          child: content,
       ),
     );
   }
