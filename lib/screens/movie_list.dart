@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 
 import '../widgets/options_drawer.dart';
 
-class SearchResults extends StatefulWidget {
-  const SearchResults({
+class MovieList extends StatefulWidget {
+  const MovieList({
     super.key,
     this.searchTerm,
     required this.pageTitle,
@@ -20,10 +20,10 @@ class SearchResults extends StatefulWidget {
   final void Function() getFilms;
 
   @override
-  State<SearchResults> createState() => _SearchResultsState();
+  State<MovieList> createState() => _MovieListState();
 }
 
-class _SearchResultsState extends State<SearchResults> {
+class _MovieListState extends State<MovieList> {
   List<MovieOption> searchResults = [];
 
   void _search() async {

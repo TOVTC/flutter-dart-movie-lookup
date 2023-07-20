@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../screens/movie_list.dart';
 
 class OptionsDrawer extends StatelessWidget {
   const OptionsDrawer({super.key});
@@ -27,14 +30,43 @@ class OptionsDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-                leading: const Icon(Icons.trending_up),
-                title: const Text(
-                  'Trending',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onTap: () {
-                  print('Trending');
-                }),
+              leading: const Icon(Icons.search),
+              title: const Text(
+                'Search',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () {
+                print('Search');
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => const Homepage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.trending_up),
+              title: const Text(
+                'Trending',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () {
+                print('Trending');
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => MovieList(
+                      searchTerm: 'avengers',
+                      pageTitle: 'Search Results:',
+                      getFilms: () {
+                        print('hello');
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
             ListTile(
                 leading: const Icon(Icons.thumb_up),
                 title: const Text(
