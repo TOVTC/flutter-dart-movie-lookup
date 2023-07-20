@@ -90,8 +90,7 @@ class _MovieListState extends State<MovieList> {
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      '${searchResults[index].title} (${searchResults[index].releaseDate.split('-')[0]})',
+                    child: Text(searchResults[index].releaseDate != '' ? '${searchResults[index].title} (${searchResults[index].releaseDate.split('-')[0]})' : searchResults[index].title,
                       key: ValueKey(index),
                     ),
                   ),

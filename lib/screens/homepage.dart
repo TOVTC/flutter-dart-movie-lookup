@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
 import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -65,6 +67,25 @@ class _HomepageState extends State<Homepage> {
                         // when calling the save method, the onSaved method is triggered on all form fields
                         _formKey.currentState!.save();
                         print(_searchTerm);
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => MovieList(
+                              pageTitle: 'Search Results:',
+                              url: Uri.https(
+                                'api.themoviedb.org',
+                                '/3/search/movie',
+                                {
+                                  'api_key': dotenv.env['API_KEY'],
+                                  'language': 'en-US',
+                                  'query': _searchTerm,
+                                  'page': '1',
+                                  'include_adult': 'false'
+                                },
+                              ),
+                            ),
+                          ),
+                        );
                       }
                     },
                     child: const Text('Search'),
