@@ -61,13 +61,11 @@ class OptionsDrawer extends StatelessWidget {
                       pageTitle: 'Trending:',
                       url: Uri.https(
                         'api.themoviedb.org',
-                        '/3/search/movie',
+                        '/3/trending/movie/day',
                         {
                           'api_key': dotenv.env['API_KEY'],
                           'language': 'en-US',
-                          'query': 'avengers',
                           'page': '1',
-                          'include_adult': 'false'
                         },
                       ),
                     ),
@@ -90,13 +88,11 @@ class OptionsDrawer extends StatelessWidget {
                       pageTitle: 'Popular:',
                       url: Uri.https(
                         'api.themoviedb.org',
-                        '/3/search/movie',
+                        '/3/movie/popular',
                         {
                           'api_key': dotenv.env['API_KEY'],
                           'language': 'en-US',
-                          'query': 'avengers',
                           'page': '1',
-                          'include_adult': 'false'
                         },
                       ),
                     ),
@@ -119,13 +115,11 @@ class OptionsDrawer extends StatelessWidget {
                       pageTitle: 'Top Rated:',
                       url: Uri.https(
                         'api.themoviedb.org',
-                        '/3/search/movie',
+                        '/3/movie/top_rated',
                         {
                           'api_key': dotenv.env['API_KEY'],
                           'language': 'en-US',
-                          'query': 'avengers',
                           'page': '1',
-                          'include_adult': 'false'
                         },
                       ),
                     ),
@@ -148,13 +142,11 @@ class OptionsDrawer extends StatelessWidget {
                       pageTitle: 'Now Playing:',
                       url: Uri.https(
                         'api.themoviedb.org',
-                        '/3/search/movie',
+                        '/3/movie/now_playing',
                         {
                           'api_key': dotenv.env['API_KEY'],
                           'language': 'en-US',
-                          'query': 'avengers',
                           'page': '1',
-                          'include_adult': 'false'
                         },
                       ),
                     ),

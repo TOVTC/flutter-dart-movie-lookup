@@ -34,7 +34,7 @@ class _MovieListState extends State<MovieList> {
           MovieOption(
             id: movie['id'],
             title: movie['title'],
-            releaseDate: movie['release_date'],
+            releaseDate: movie['release_date'] ?? '',
           ),
         );
       }
@@ -67,7 +67,7 @@ class _MovieListState extends State<MovieList> {
           ],
         ),
       ),
-      drawer: OptionsDrawer(),
+      drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
