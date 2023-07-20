@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../screens/movie_list.dart';
@@ -58,9 +59,17 @@ class OptionsDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (ctx) => MovieList(
                       pageTitle: 'Trending:',
-                      getFilms: () {
-                        print('hello');
-                      },
+                      url: Uri.https(
+                        'api.themoviedb.org',
+                        '/3/search/movie',
+                        {
+                          'api_key': dotenv.env['API_KEY'],
+                          'language': 'en-US',
+                          'query': 'avengers',
+                          'page': '1',
+                          'include_adult': 'false'
+                        },
+                      ),
                     ),
                   ),
                 );
@@ -79,9 +88,17 @@ class OptionsDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (ctx) => MovieList(
                       pageTitle: 'Popular:',
-                      getFilms: () {
-                        print('hello');
-                      },
+                      url: Uri.https(
+                        'api.themoviedb.org',
+                        '/3/search/movie',
+                        {
+                          'api_key': dotenv.env['API_KEY'],
+                          'language': 'en-US',
+                          'query': 'avengers',
+                          'page': '1',
+                          'include_adult': 'false'
+                        },
+                      ),
                     ),
                   ),
                 );
@@ -100,9 +117,17 @@ class OptionsDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (ctx) => MovieList(
                       pageTitle: 'Top Rated:',
-                      getFilms: () {
-                        print('hello');
-                      },
+                      url: Uri.https(
+                        'api.themoviedb.org',
+                        '/3/search/movie',
+                        {
+                          'api_key': dotenv.env['API_KEY'],
+                          'language': 'en-US',
+                          'query': 'avengers',
+                          'page': '1',
+                          'include_adult': 'false'
+                        },
+                      ),
                     ),
                   ),
                 );
@@ -121,9 +146,17 @@ class OptionsDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (ctx) => MovieList(
                       pageTitle: 'Now Playing:',
-                      getFilms: () {
-                        print('hello');
-                      },
+                      url: Uri.https(
+                        'api.themoviedb.org',
+                        '/3/search/movie',
+                        {
+                          'api_key': dotenv.env['API_KEY'],
+                          'language': 'en-US',
+                          'query': 'avengers',
+                          'page': '1',
+                          'include_adult': 'false'
+                        },
+                      ),
                     ),
                   ),
                 );
