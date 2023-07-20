@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
+import 'package:flutter_dart_movie_lookup/screens/movie_details.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Results extends StatefulWidget {
   const Results({
@@ -34,7 +36,20 @@ class _ResultsState extends State<Results> {
             itemCount: widget.searchResults.length,
             itemBuilder: (ctx, index) => GestureDetector(
               onTap: () {
-                print(widget.searchResults[index].id);
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => MovieDetails(
+                      url: Uri.https(
+                        'api.themoviedb.org',
+                        '3/movie/${widget.searchResults[index].id}',
+                        {
+                          'api_key': dotenv.env['API_KEY'],
+                        },
+                      ),
+                    ),
+                  ),
+                );
               },
               child: Padding(
                 padding: const EdgeInsets.all(8),

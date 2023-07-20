@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
-import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final theme = ThemeData(
@@ -19,13 +18,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      // home: MovieList(
-      //   searchTerm: 'avengers',
-      //   pageTitle: 'Search Results:',
-      //   getFilms: () {
-      //     print('hello');
-      //   },
-      // ),
       home: const Homepage(),
     );
   }
