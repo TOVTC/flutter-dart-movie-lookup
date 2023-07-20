@@ -65,24 +65,11 @@ class _MovieDetailsState extends State<MovieDetails> {
       content = Column(
         children: [
           Text(
-            movie!.title,
+            movie!.originalTitle != '' ? movie!.originalTitle : movie!.title,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
-          ),
-          const SizedBox(height: 20),
-          Semantics(
-            label: '${movie!.title} movie poster',
-            child: movie!.posterPath != ''
-                ? Image.network(
-                    'https://image.tmdb.org/t/p/original${movie!.posterPath}',
-                    width: 200,
-                  )
-                : Image.asset(
-                    './assets/favicon.png',
-                    width: 200,
-                  ),
           ),
           Expanded(
             child: Padding(
@@ -90,6 +77,19 @@ class _MovieDetailsState extends State<MovieDetails> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    Semantics(
+                      label: '${movie!.title} movie poster',
+                      child: movie!.posterPath != ''
+                          ? Image.network(
+                              'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                              width: 200,
+                            )
+                          : Image.asset(
+                              './assets/favicon.png',
+                              width: 200,
+                            ),
+                    ),
+                    const SizedBox(height: 20),
                     Text(
                       '"${movie!.tagline}"',
                       style: const TextStyle(
@@ -98,7 +98,34 @@ class _MovieDetailsState extends State<MovieDetails> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15),
-                    Text('Release Date - ${movie!.releaseDate}',),
+                    Text(
+                      'Release Date - ${movie!.releaseDate}',
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Runtime - ${movie!.runtime}',
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Genres - ${movie!.genres.join(', ')}',
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Languages - ${movie!.languages.join(', ')}',
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Production Company - ${movie!.productionCompanies.join(', ')}',
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      movie!.homepage,
+                      style: const TextStyle(color: Colors.blue),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Synopsis: ${movie!.overview}',
+                    ),
                   ],
                 ),
               ),
@@ -129,7 +156,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
-          child: content,
+        child: content,
       ),
     );
   }
