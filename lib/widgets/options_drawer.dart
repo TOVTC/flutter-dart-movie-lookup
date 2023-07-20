@@ -37,7 +37,6 @@ class OptionsDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () {
-                print('Search');
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -53,7 +52,6 @@ class OptionsDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () {
-                print('Trending');
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -80,7 +78,6 @@ class OptionsDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () {
-                print('Popular');
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -107,7 +104,6 @@ class OptionsDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () {
-                print('Top Rated');
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -134,7 +130,6 @@ class OptionsDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () {
-                print('Now Playing');
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(

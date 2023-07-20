@@ -66,7 +66,6 @@ class _HomepageState extends State<Homepage> {
                       if (_formKey.currentState!.validate()) {
                         // when calling the save method, the onSaved method is triggered on all form fields
                         _formKey.currentState!.save();
-                        print(_searchTerm);
                         Navigator.of(context).pop();
                         Navigator.of(context).push(
                           MaterialPageRoute(

@@ -5,16 +5,15 @@ import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:http/http.dart' as http;
 
 import '../widgets/options_drawer.dart';
+import '../widgets/results.dart';
 
 class MovieList extends StatefulWidget {
   const MovieList({
     super.key,
-    this.searchTerm,
     required this.pageTitle,
     required this.url,
   });
 
-  final String? searchTerm;
   final String pageTitle;
   final Uri url;
 
@@ -70,34 +69,9 @@ class _MovieListState extends State<MovieList> {
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.pageTitle,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 15),
-            Expanded(
-              child: ListView.builder(
-                itemCount: searchResults.length,
-                itemBuilder: (ctx, index) => GestureDetector(
-                  onTap: () {
-                    print(searchResults[index].id);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(searchResults[index].releaseDate != '' ? '${searchResults[index].title} (${searchResults[index].releaseDate.split('-')[0]})' : searchResults[index].title,
-                      key: ValueKey(index),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        child: Results(
+          pageTitle: widget.pageTitle,
+          searchResults: searchResults,
         ),
       ),
     );
