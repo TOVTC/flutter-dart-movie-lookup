@@ -57,8 +57,7 @@ class OptionsDrawer extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (ctx) => MovieList(
-                      searchTerm: 'avengers',
-                      pageTitle: 'Search Results:',
+                      pageTitle: 'Trending:',
                       getFilms: () {
                         print('hello');
                       },
@@ -68,32 +67,68 @@ class OptionsDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-                leading: const Icon(Icons.thumb_up),
-                title: const Text(
-                  'Popular',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onTap: () {
-                  print('Popular');
-                }),
+              leading: const Icon(Icons.thumb_up),
+              title: const Text(
+                'Popular',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () {
+                print('Popular');
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => MovieList(
+                      pageTitle: 'Popular:',
+                      getFilms: () {
+                        print('hello');
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
             ListTile(
-                leading: const Icon(Icons.star),
-                title: const Text(
-                  'Top Rated',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onTap: () {
-                  print('Top Rated');
-                }),
+              leading: const Icon(Icons.star),
+              title: const Text(
+                'Top Rated',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () {
+                print('Top Rated');
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => MovieList(
+                      pageTitle: 'Top Rated:',
+                      getFilms: () {
+                        print('hello');
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
             ListTile(
-                leading: const Icon(Icons.play_arrow),
-                title: const Text(
-                  'Now Playing',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onTap: () {
-                  print('Now Playing');
-                }),
+              leading: const Icon(Icons.play_arrow),
+              title: const Text(
+                'Now Playing',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () {
+                print('Now Playing');
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => MovieList(
+                      pageTitle: 'Now Playing:',
+                      getFilms: () {
+                        print('hello');
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

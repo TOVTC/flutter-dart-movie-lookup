@@ -31,7 +31,7 @@ class _MovieListState extends State<MovieList> {
     final url = Uri.https('api.themoviedb.org', '/3/search/movie', {
       'api_key': dotenv.env['API_KEY'],
       'language': 'en-US',
-      'query': widget.searchTerm,
+      'query': widget.searchTerm ?? 'avengers',
       'page': '1',
       'include_adult': 'false'
     });
