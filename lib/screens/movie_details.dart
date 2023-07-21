@@ -21,8 +21,9 @@ class MovieDetails extends StatefulWidget {
 
 class _MovieDetailsState extends State<MovieDetails> {
   Movie? movie;
-  List<MovieOption> recommendedResults = [];
-  List<MovieOption> similarResults = [];
+
+  List<Widget> recommended = [];
+  List<Widget> similar = [];
 
   List<String> _parseObjects(String propName, List<dynamic> data) {
     List<String> targetValues = [];
@@ -75,6 +76,9 @@ class _MovieDetailsState extends State<MovieDetails> {
   }
 
   void _getRecommended() async {
+    List<MovieOption> recommendedResults = [];
+    List<Widget> convertRecommended = [];
+
     final url = Uri.https(
       'api.themoviedb.org',
       '/3/movie/${widget.movieId}/recommendations',
@@ -87,21 +91,42 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     final response = await http.get(url);
     final decoded = json.decode(response.body);
-    setState(() {
-      for (final movie in decoded['results']) {
-        recommendedResults.add(
-          MovieOption(
-            id: movie['id'],
-            title: movie['title'],
-            releaseDate: movie['release_date'] ?? '',
+
+    for (final movie in decoded['results']) {
+      recommendedResults.add(
+        MovieOption(
+          id: movie['id'],
+          title: movie['title'],
+          releaseDate: movie['release_date'] ?? '',
+        ),
+      );
+    }
+
+    for (final link in recommendedResults) {
+      convertRecommended.add(
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              link.releaseDate != ''
+                  ? '${link.title} (${link.releaseDate.split('-')[0]})'
+                  : link.title,
+              key: ValueKey(link.id),
+            ),
           ),
-        );
-      }
+        ),
+      );
+    }
+    setState(() {
+      recommended = convertRecommended;
     });
-    print(recommendedResults);
   }
 
   void _getSimilar() async {
+    List<MovieOption> similarResults = [];
+    List<Widget> convertSimilar = [];
+
     final url = Uri.https(
       'api.themoviedb.org',
       '/3/movie/${widget.movieId}/recommendations',
@@ -114,18 +139,36 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     final response = await http.get(url);
     final decoded = json.decode(response.body);
-    setState(() {
-      for (final movie in decoded['results']) {
-        similarResults.add(
-          MovieOption(
-            id: movie['id'],
-            title: movie['title'],
-            releaseDate: movie['release_date'] ?? '',
+
+    for (final movie in decoded['results']) {
+      similarResults.add(
+        MovieOption(
+          id: movie['id'],
+          title: movie['title'],
+          releaseDate: movie['release_date'] ?? '',
+        ),
+      );
+    }
+
+    for (final link in similarResults) {
+      convertSimilar.add(
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              link.releaseDate != ''
+                  ? '${link.title} (${link.releaseDate.split('-')[0]})'
+                  : link.title,
+              key: ValueKey(link.id),
+            ),
           ),
-        );
-      }
+        ),
+      );
+    }
+    setState(() {
+      similar = convertSimilar;
     });
-    print(similarResults);
   }
 
   @override
@@ -141,6 +184,171 @@ class _MovieDetailsState extends State<MovieDetails> {
     Widget content = const Text('Loading...');
 
     if (movie != null) {
+      List<Widget> baseComponents = [
+        Semantics(
+          label: '${movie!.title} movie poster',
+          child: movie!.posterPath != ''
+              ? Image.network(
+                  'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                  width: 200,
+                )
+              : Image.asset(
+                  './assets/favicon.png',
+                  width: 200,
+                ),
+        ),
+        const SizedBox(height: 20),
+        Offstage(
+          offstage: movie!.tagline.isEmpty,
+          child: Column(
+            children: [
+              Text(
+                '"${movie!.tagline}"',
+                style: const TextStyle(
+                  fontStyle: FontStyle.italic,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.releaseDate.isEmpty,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Release Date - ${movie!.releaseDate}',
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.runtime == 0,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Runtime - ${_computeRuntime(movie!.runtime)}',
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.genres.isEmpty,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Genres - ${movie!.genres.join(', ')}',
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.language.isEmpty,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.productionCompanies.isEmpty,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Production Company - ${movie!.productionCompanies.join(', ')}',
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.homepage.isEmpty,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  movie!.homepage,
+                  style: const TextStyle(color: Colors.blue),
+                ),
+              ),
+              const SizedBox(height: 5),
+            ],
+          ),
+        ),
+        Offstage(
+          offstage: movie!.overview.isEmpty,
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Synopsis: ${movie!.overview}',
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+      ];
+
+      setState(() {
+        baseComponents.addAll([
+          const Text(
+            'Recommended Films:',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 15),
+        ]);
+        if (recommended.isNotEmpty) {
+          baseComponents.addAll(recommended);
+        } else {
+          baseComponents.add(const Text('Nothing to display'));
+        }
+        baseComponents.add(const SizedBox(height: 20));
+        baseComponents.addAll([
+          const Text(
+            'Similar Films:',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 15),
+        ]);
+        if (similar.isNotEmpty) {
+          baseComponents.addAll(similar);
+        } else {
+          baseComponents.add(const Text('Nothing to display'));
+        }
+      });
+
       content = Column(
         children: [
           Text(
@@ -155,149 +363,9 @@ class _MovieDetailsState extends State<MovieDetails> {
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    Semantics(
-                      label: '${movie!.title} movie poster',
-                      child: movie!.posterPath != ''
-                          ? Image.network(
-                              'https://image.tmdb.org/t/p/original${movie!.posterPath}',
-                              width: 200,
-                            )
-                          : Image.asset(
-                              './assets/favicon.png',
-                              width: 200,
-                            ),
-                    ),
-                    const SizedBox(height: 20),
-                    Offstage(
-                      offstage: movie!.tagline.isEmpty,
-                      child: Column(
-                        children: [
-                          Text(
-                            '"${movie!.tagline}"',
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.releaseDate.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Release Date - ${movie!.releaseDate}',
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.runtime == 0,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Runtime - ${_computeRuntime(movie!.runtime)}',
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.genres.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Genres - ${movie!.genres.join(', ')}',
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.language.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.productionCompanies.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Production Company - ${movie!.productionCompanies.join(', ')}',
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.homepage.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              movie!.homepage,
-                              style: const TextStyle(color: Colors.blue),
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.overview.isEmpty,
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Synopsis: ${movie!.overview}',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  children: baseComponents,
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: Results(
-              pageTitle: 'Recommended Films:',
-              searchResults: recommendedResults,
-            ),
-          ),
-          Expanded(
-            child: Results(
-              pageTitle: 'Similar Films:',
-              searchResults: similarResults,
             ),
           ),
         ],
