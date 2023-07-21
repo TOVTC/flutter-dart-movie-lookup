@@ -36,7 +36,6 @@ class _ResultsState extends State<Results> {
             itemCount: widget.searchResults.length,
             itemBuilder: (ctx, index) => GestureDetector(
               onTap: () {
-                Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (ctx) => MovieDetails(

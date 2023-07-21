@@ -68,7 +68,7 @@ class _MovieListState extends State<MovieList> {
       ),
       drawer: const OptionsDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(25),
         child: Results(
           pageTitle: widget.pageTitle,
           searchResults: searchResults,

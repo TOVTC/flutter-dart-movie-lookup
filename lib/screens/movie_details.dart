@@ -153,7 +153,6 @@ class _MovieDetailsState extends State<MovieDetails> {
           ],
         ),
       ),
-      drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: content,
