@@ -20,6 +20,24 @@ class MovieDetails extends StatefulWidget {
 class _MovieDetailsState extends State<MovieDetails> {
   Movie? movie;
 
+  List<String> _parseObjects(String propName, List<dynamic> data) {
+    List<String> targetValues =[];
+
+    for (var entry in data) {
+      targetValues.add(entry[propName]);
+    }
+    return targetValues;
+  }
+
+  String _computeRuntime(int runtime) {
+    if (runtime == 0) {
+      return '';
+    }
+    int hours = (runtime~/60);
+    int minutes = runtime % 60;
+    return '${hours}h ${minutes}min';
+  }
+
   void _getDetails() async {
     final url = Uri.https(
       'api.themoviedb.org',
@@ -28,8 +46,10 @@ class _MovieDetailsState extends State<MovieDetails> {
         'api_key': dotenv.env['API_KEY'],
       },
     );
+
     final response = await http.get(url);
     final decoded = json.decode(response.body);
+
     setState(() {
       movie = Movie(
         id: decoded['id'],
@@ -42,9 +62,9 @@ class _MovieDetailsState extends State<MovieDetails> {
         tagline: decoded['tagline'] ?? '',
         homepage: decoded['homepage'] ?? '',
         overview: decoded['overview'] ?? '',
-        genres: ['genre'],
-        languages: ['language'],
-        productionCompanies: ['company'],
+        genres: _parseObjects('name', decoded['genres']),
+        languages: _parseObjects('english_name', decoded['spoken_languages']),
+        productionCompanies: _parseObjects('name', decoded['production_companies']),
       );
     });
   }
@@ -119,7 +139,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       child: Column(
                         children: [
                           Text(
-                            'Runtime - ${movie!.runtime}',
+                            'Runtime - ${_computeRuntime(movie!.runtime)}',
                           ),
                           const SizedBox(height: 15),
                         ],
