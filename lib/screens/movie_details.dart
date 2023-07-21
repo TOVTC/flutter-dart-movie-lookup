@@ -98,7 +98,7 @@ class _MovieDetailsState extends State<MovieDetails> {
         );
       }
     });
-        print(recommendedResults);
+    print(recommendedResults);
   }
 
   void _getSimilar() async {
@@ -154,144 +154,144 @@ class _MovieDetailsState extends State<MovieDetails> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: ListView(
-                  children: [
-                    Semantics(
-                      label: '${movie!.title} movie poster',
-                      child: movie!.posterPath != ''
-                          ? Image.network(
-                              'https://image.tmdb.org/t/p/original${movie!.posterPath}',
-                              width: 200,
-                            )
-                          : Image.asset(
-                              './assets/favicon.png',
-                              width: 200,
-                            ),
-                    ),
-                    const SizedBox(height: 20),
-                    Offstage(
-                      offstage: movie!.tagline.isEmpty,
-                      child: Column(
-                        children: [
-                          Text(
-                            '"${movie!.tagline}"',
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.center,
+                children: [
+                  Semantics(
+                    label: '${movie!.title} movie poster',
+                    child: movie!.posterPath != ''
+                        ? Image.network(
+                            'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                            width: 200,
+                          )
+                        : Image.asset(
+                            './assets/favicon.png',
+                            width: 200,
                           ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                    Offstage(
-                      offstage: movie!.releaseDate.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Release Date - ${movie!.releaseDate}',
-                            ),
+                  ),
+                  const SizedBox(height: 20),
+                  Offstage(
+                    offstage: movie!.tagline.isEmpty,
+                    child: Column(
+                      children: [
+                        Text(
+                          '"${movie!.tagline}"',
+                          style: const TextStyle(
+                            fontStyle: FontStyle.italic,
                           ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                    Offstage(
-                      offstage: movie!.runtime == 0,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Runtime - ${_computeRuntime(movie!.runtime)}',
-                            ),
+                  ),
+                  Offstage(
+                    offstage: movie!.releaseDate.isEmpty,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Release Date - ${movie!.releaseDate}',
                           ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    Offstage(
-                      offstage: movie!.genres.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Genres - ${movie!.genres.join(', ')}',
-                            ),
+                  ),
+                  Offstage(
+                    offstage: movie!.runtime == 0,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Runtime - ${_computeRuntime(movie!.runtime)}',
                           ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    Offstage(
-                      offstage: movie!.language.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
-                            ),
+                  ),
+                  Offstage(
+                    offstage: movie!.genres.isEmpty,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Genres - ${movie!.genres.join(', ')}',
                           ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    Offstage(
-                      offstage: movie!.productionCompanies.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Production Company - ${movie!.productionCompanies.join(', ')}',
-                            ),
+                  ),
+                  Offstage(
+                    offstage: movie!.language.isEmpty,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
                           ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    Offstage(
-                      offstage: movie!.homepage.isEmpty,
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              movie!.homepage,
-                              style: const TextStyle(color: Colors.blue),
-                            ),
+                  ),
+                  Offstage(
+                    offstage: movie!.productionCompanies.isEmpty,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Production Company - ${movie!.productionCompanies.join(', ')}',
                           ),
-                          const SizedBox(height: 5),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    Offstage(
-                      offstage: movie!.overview.isEmpty,
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Synopsis: ${movie!.overview}',
-                            ),
+                  ),
+                  Offstage(
+                    offstage: movie!.homepage.isEmpty,
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            movie!.homepage,
+                            style: const TextStyle(color: Colors.blue),
                           ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 5),
+                      ],
                     ),
-                    Results(
-                        pageTitle: 'help',
-                        searchResults: recommendedResults,
-                      ),
-                    Results(
-                        pageTitle: 'help 2 electric boogaloo',
-                        searchResults: similarResults,
-                      ),
-                  ],
-                ),
+                  ),
+                  Offstage(
+                    offstage: movie!.overview.isEmpty,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Synopsis: ${movie!.overview}',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Results(
+                    pageTitle: 'help',
+                    searchResults: recommendedResults,
+                  ),
+                  Results(
+                    pageTitle: 'help 2 electric boogaloo',
+                    searchResults: similarResults,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
