@@ -18,9 +18,12 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
+  Widget content = const Text('Nothing to display');
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    if (widget.searchResults.isNotEmpty) {
+      content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -58,5 +61,7 @@ class _ResultsState extends State<Results> {
         ),
       ],
     );
+    }
+    return content;
   }
 }
