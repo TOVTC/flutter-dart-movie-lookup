@@ -5,8 +5,6 @@ import 'package:flutter_dart_movie_lookup/models/movie.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-import '../widgets/options_drawer.dart';
-
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
@@ -33,19 +31,35 @@ class _MovieDetailsState extends State<MovieDetails> {
     final response = await http.get(url);
     final decoded = json.decode(response.body);
     setState(() {
-      movie = Movie(
+      // movie = Movie(
+      //   id: decoded['id'],
+      //   title: decoded['title'],
+      //   originalTitle: decoded['original_title'] ?? '',
+      //   posterPath: decoded['poster_path'] ?? '',
+      //   language: decoded['original_language'] ?? '',
+      //   releaseDate: decoded['release_date'] ?? '',
+      //   runtime: decoded['runtime'] ?? 0,
+      //   tagline: decoded['tagline'] ?? '',
+      //   homepage: decoded['homepage'] ?? '',
+      //   overview: decoded['overview'] ?? '',
+      //   genres: ['genre'],
+      //   languages: ['language'],
+      //   productionCompanies: ['company'],
+      // );
+
+        movie = Movie(
         id: decoded['id'],
         title: decoded['title'] ?? '',
         originalTitle: decoded['original_title'] ?? '',
         posterPath: decoded['poster_path'] ?? '',
         language: decoded['original_language'] ?? '',
         releaseDate: decoded['release_date'] ?? '',
-        runtime: decoded['runtime'] ?? '',
+        runtime: decoded['runtime'] ?? 0,
         tagline: decoded['tagline'] ?? '',
         homepage: decoded['homepage'] ?? '',
         overview: decoded['overview'] ?? '',
         genres: ['genre'],
-        languages: ['language'],
+        languages: ['languages'],
         productionCompanies: ['company'],
       );
     });
@@ -90,41 +104,65 @@ class _MovieDetailsState extends State<MovieDetails> {
                             ),
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      '"${movie!.tagline}"',
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
+                    Visibility(
+                      visible: movie!.tagline.isNotEmpty,
+                      child: Text(
+                        '"${movie!.tagline}"',
+                        style: const TextStyle(
+                          fontStyle: FontStyle.italic,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      'Release Date - ${movie!.releaseDate}',
+                    Visibility(
+                      visible: movie!.releaseDate.isNotEmpty,
+                      child: Text(
+                        'Release Date - ${movie!.releaseDate}',
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      'Runtime - ${movie!.runtime}',
+                    Visibility(
+                      visible: movie!.runtime > 0,
+                      child: Text(
+                        'Runtime - ${movie!.runtime}',
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      'Genres - ${movie!.genres.join(', ')}',
+                    Visibility(
+                      visible: movie!.genres.isNotEmpty,
+                      child: Text(
+                        'Genres - ${movie!.genres.join(', ')}',
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      'Languages - ${movie!.languages.join(', ')}',
+                    Visibility(
+                      visible: movie!.language.isNotEmpty,
+                      child: Text(
+                        'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      'Production Company - ${movie!.productionCompanies.join(', ')}',
+                    Visibility(
+                      visible: movie!.productionCompanies.isNotEmpty,
+                      child: Text(
+                        'Production Company - ${movie!.productionCompanies.join(', ')}',
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      movie!.homepage,
-                      style: const TextStyle(color: Colors.blue),
+                    Visibility(
+                      visible: movie!.homepage.isNotEmpty,
+                      child: Text(
+                        movie!.homepage,
+                        style: const TextStyle(color: Colors.blue),
+                      ),
                     ),
                     const SizedBox(height: 15),
-                    Text(
-                      'Synopsis: ${movie!.overview}',
+                    Visibility(
+                      visible: movie!.overview.isNotEmpty,
+                      child: Text(
+                        'Synopsis: ${movie!.overview}',
+                      ),
                     ),
                   ],
                 ),
