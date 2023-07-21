@@ -119,7 +119,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
                         ],
                       ),
                     ),
@@ -127,10 +127,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.releaseDate.isEmpty,
                       child: Column(
                         children: [
-                          Text(
-                            'Release Date - ${movie!.releaseDate}',
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Release Date - ${movie!.releaseDate}',
+                            ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -138,10 +141,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.runtime == 0,
                       child: Column(
                         children: [
-                          Text(
-                            'Runtime - ${_computeRuntime(movie!.runtime)}',
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Runtime - ${_computeRuntime(movie!.runtime)}',
+                            ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -149,10 +155,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.genres.isEmpty,
                       child: Column(
                         children: [
-                          Text(
-                            'Genres - ${movie!.genres.join(', ')}',
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Genres - ${movie!.genres.join(', ')}',
+                            ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -160,10 +169,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.language.isEmpty,
                       child: Column(
                         children: [
-                          Text(
-                            'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                            ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -171,10 +183,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.productionCompanies.isEmpty,
                       child: Column(
                         children: [
-                          Text(
-                            'Production Company - ${movie!.productionCompanies.join(', ')}',
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Production Company - ${movie!.productionCompanies.join(', ')}',
+                            ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -182,11 +197,14 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.homepage.isEmpty,
                       child: Column(
                         children: [
-                          Text(
-                            movie!.homepage,
-                            style: const TextStyle(color: Colors.blue),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              movie!.homepage,
+                              style: const TextStyle(color: Colors.blue),
+                            ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 5),
                         ],
                       ),
                     ),
@@ -194,10 +212,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                       offstage: movie!.overview.isEmpty,
                       child: Column(
                         children: [
-                          Text(
-                            'Synopsis: ${movie!.overview}',
+                          const SizedBox(height: 20),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Synopsis: ${movie!.overview}',
+                            ),
                           ),
-                          const SizedBox(height: 15),
                         ],
                       ),
                     ),
