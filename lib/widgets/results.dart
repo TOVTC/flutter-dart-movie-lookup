@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dart_movie_lookup/screens/movie_details.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Results extends StatefulWidget {
   const Results({
@@ -23,7 +22,31 @@ class _ResultsState extends State<Results> {
   @override
   Widget build(BuildContext context) {
     if (widget.searchResults.isNotEmpty) {
-      content = Column(
+      content = ListView.builder(
+        itemCount: widget.searchResults.length,
+        itemBuilder: (ctx, index) => GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => MovieDetails(
+                  movieId: widget.searchResults[index].id,
+                ),
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              widget.searchResults[index].releaseDate != ''
+                  ? '${widget.searchResults[index].title} (${widget.searchResults[index].releaseDate.split('-')[0]})'
+                  : widget.searchResults[index].title,
+              key: ValueKey(index),
+            ),
+          ),
+        ),
+      );
+    }
+    return content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -35,33 +58,9 @@ class _ResultsState extends State<Results> {
         ),
         const SizedBox(height: 15),
         Expanded(
-          child: ListView.builder(
-            itemCount: widget.searchResults.length,
-            itemBuilder: (ctx, index) => GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => MovieDetails(
-                      movieId: widget.searchResults[index].id,
-                    ),
-                  ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  widget.searchResults[index].releaseDate != ''
-                      ? '${widget.searchResults[index].title} (${widget.searchResults[index].releaseDate.split('-')[0]})'
-                      : widget.searchResults[index].title,
-                  key: ValueKey(index),
-                ),
-              ),
-            ),
-          ),
+          child: content,
         ),
       ],
     );
-    }
-    return content;
   }
 }

@@ -132,8 +132,8 @@ class _MovieDetailsState extends State<MovieDetails> {
   void initState() {
     super.initState();
     _getDetails();
-    _getRecommended();
-    _getSimilar();
+    // _getRecommended();
+    // _getSimilar();
   }
 
   @override
@@ -153,8 +153,7 @@ class _MovieDetailsState extends State<MovieDetails> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Column(
+              child: ListView(
                   children: [
                     Semantics(
                       label: '${movie!.title} movie poster',
@@ -283,21 +282,16 @@ class _MovieDetailsState extends State<MovieDetails> {
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: Results(
+                    Results(
                         pageTitle: 'help',
                         searchResults: recommendedResults,
                       ),
-                    ),
-                    Expanded(
-                      child: Results(
+                    Results(
                         pageTitle: 'help 2 electric boogaloo',
                         searchResults: similarResults,
                       ),
-                    )
                   ],
                 ),
-              ),
             ),
           ),
         ],
