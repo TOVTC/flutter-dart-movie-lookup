@@ -171,7 +171,7 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     final url = Uri.https(
       'api.themoviedb.org',
-      '/3/movie/${widget.movieId}/recommendations',
+      '/3/movie/${widget.movieId}/similar',
       {
         'api_key': dotenv.env['API_KEY'],
         'language': 'en-US',
@@ -252,8 +252,6 @@ class _MovieDetailsState extends State<MovieDetails> {
     Widget horizontalContent = const Text('Loading...');
 
     if (movie != null) {
-      List<Widget> baseComponents = [];
-
       List<Widget> evalRec() {
         if (_recError) {
           return const [Text('Something went wrong')];
