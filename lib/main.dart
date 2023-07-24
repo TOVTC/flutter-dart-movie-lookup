@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
-import 'package:flutter_dart_movie_lookup/screens/movie_details.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final theme = ThemeData(
@@ -24,8 +23,7 @@ class App extends StatelessWidget {
           seedColor: const Color.fromARGB(100, 69, 88, 111),
         ),
       ),
-      // home: const Homepage(),
-      home: const MovieDetails(movieId: 647, film: 'Advent children')
+      home: const Homepage(),
     );
   }
 }

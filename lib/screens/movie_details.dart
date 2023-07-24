@@ -275,175 +275,183 @@ class _MovieDetailsState extends State<MovieDetails> {
       }
 
       List<Widget> rowOne = [
-        Column(
-          children: [
-            Semantics(
-              label: '${movie!.title} movie poster',
-              child: movie!.posterPath != ''
-                  ? Image.network(
-                      'https://image.tmdb.org/t/p/original${movie!.posterPath}',
-                      width: 200,
-                    )
-                  : Image.asset(
-                      './assets/favicon.png',
-                      width: 200,
-                    ),
-            ),
-            const SizedBox(height: 20),
-            Offstage(
-                offstage: movie!.tagline.isEmpty,
+        Expanded(
+          child: Column(
+            children: [
+              Semantics(
+                label: '${movie!.title} movie poster',
+                child: movie!.posterPath != ''
+                    ? Image.network(
+                        'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                        width: 200,
+                      )
+                    : Image.asset(
+                        './assets/favicon.png',
+                        width: 200,
+                      ),
+              ),
+              const SizedBox(height: 20),
+              Offstage(
+                  offstage: movie!.tagline.isEmpty,
+                  child: Column(
+                    children: [
+                      Text(
+                        '"${movie!.tagline}"',
+                        style: const TextStyle(
+                          fontStyle: FontStyle.italic,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Offstage(
+                offstage: movie!.releaseDate.isEmpty,
                 child: Column(
                   children: [
-                    Text(
-                      '"${movie!.tagline}"',
-                      style: const TextStyle(
-                        fontStyle: FontStyle.italic,
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Release Date - ${movie!.releaseDate}',
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
                   ],
                 ),
               ),
-          ],
-        ),
-        Column(
-          children: [
-            Offstage(
-              offstage: movie!.releaseDate.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Release Date - ${movie!.releaseDate}',
+              Offstage(
+                offstage: movie!.runtime == 0,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Runtime - ${_computeRuntime(movie!.runtime)}',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-            Offstage(
-              offstage: movie!.runtime == 0,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Runtime - ${_computeRuntime(movie!.runtime)}',
+              Offstage(
+                offstage: movie!.genres.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Genres - ${movie!.genres.join(', ')}',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-            Offstage(
-              offstage: movie!.genres.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Genres - ${movie!.genres.join(', ')}',
+              Offstage(
+                offstage: movie!.language.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-            Offstage(
-              offstage: movie!.language.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+              Offstage(
+                offstage: movie!.productionCompanies.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Production Company - ${movie!.productionCompanies.join(', ')}',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-            Offstage(
-              offstage: movie!.productionCompanies.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Production Company - ${movie!.productionCompanies.join(', ')}',
+              Offstage(
+                offstage: movie!.homepage.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        movie!.homepage,
+                        style: const TextStyle(color: Colors.blue),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-            Offstage(
-              offstage: movie!.homepage.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      movie!.homepage,
-                      style: const TextStyle(color: Colors.blue),
+              Offstage(
+                offstage: movie!.overview.isEmpty,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Synopsis: ${movie!.overview}',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Offstage(
-              offstage: movie!.overview.isEmpty,
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Synopsis: ${movie!.overview}',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ];
       List<Widget> rowTwo = [
-        Column(
-          children: [
-            const Text(
-              'Recommended Films:',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        Expanded(
+          child: Column(
+            children: [
+              const Text(
+                'Recommended Films:',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 15),
-            Column(
-              children: evalRec(),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 15),
+              Column(
+                children: evalRec(),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
-        Column(
-          children: [
-            const Text(
-              'Similar Films:',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        Expanded(
+          child: Column(
+            children: [
+              const Text(
+                'Similar Films:',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 15),
-            Column(
-              children: evalSim(),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 15),
+              Column(
+                children: evalSim(),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ];
 
@@ -468,9 +476,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child:ListView(
-
                   children: combineColumns(),
-
               ),
             ),
           ),
@@ -558,7 +564,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ),
                     ],
                   )
-                : verticalContent,
+                : (width >= 600 ? horizontalContent : verticalContent),
           ),
         );
       },
