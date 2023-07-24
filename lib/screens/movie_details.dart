@@ -248,147 +248,11 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = const Text('Loading...');
+    Widget verticalContent = const Text('Loading...');
+    Widget horizontalContent = const Text('Loading...');
 
     if (movie != null) {
-      List<Widget> baseComponents = [
-        Column(
-          children: [
-            Semantics(
-              label: '${movie!.title} movie poster',
-              child: movie!.posterPath != ''
-                  ? Image.network(
-                      'https://image.tmdb.org/t/p/original${movie!.posterPath}',
-                      width: 200,
-                    )
-                  : Image.asset(
-                      './assets/favicon.png',
-                      width: 200,
-                    ),
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-        Column(
-          children: [
-            Offstage(
-              offstage: movie!.tagline.isEmpty,
-              child: Column(
-                children: [
-                  Text(
-                    '"${movie!.tagline}"',
-                    style: const TextStyle(
-                      fontStyle: FontStyle.italic,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.releaseDate.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Release Date - ${movie!.releaseDate}',
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.runtime == 0,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Runtime - ${_computeRuntime(movie!.runtime)}',
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.genres.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Genres - ${movie!.genres.join(', ')}',
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.language.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.productionCompanies.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Production Company - ${movie!.productionCompanies.join(', ')}',
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.homepage.isEmpty,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      movie!.homepage,
-                      style: const TextStyle(color: Colors.blue),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Offstage(
-              offstage: movie!.overview.isEmpty,
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Synopsis: ${movie!.overview}',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ];
+      List<Widget> baseComponents = [];
 
       List<Widget> evalRec() {
         if (_recError) {
@@ -410,46 +274,182 @@ class _MovieDetailsState extends State<MovieDetails> {
         }
       }
 
-      setState(() {
-        baseComponents.addAll(
-          [
-            Column(
-              children: [
-                const Text(
-                  'Recommended Films:',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Column(
-                  children: evalRec(),
-                ),
-                const SizedBox(height: 20),
-              ],
+      List<Widget> rowOne = [
+        Column(
+          children: [
+            Semantics(
+              label: '${movie!.title} movie poster',
+              child: movie!.posterPath != ''
+                  ? Image.network(
+                      'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                      width: 200,
+                    )
+                  : Image.asset(
+                      './assets/favicon.png',
+                      width: 200,
+                    ),
             ),
-            Column(
-              children: [
-                const Text(
-                  'Similar Films:',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            const SizedBox(height: 20),
+            Offstage(
+                offstage: movie!.tagline.isEmpty,
+                child: Column(
+                  children: [
+                    Text(
+                      '"${movie!.tagline}"',
+                      style: const TextStyle(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
-                const SizedBox(height: 15),
-                Column(
-                  children: evalSim(),
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
+              ),
           ],
-        );
-      });
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Offstage(
+                offstage: movie!.releaseDate.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Release Date - ${movie!.releaseDate}',
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: movie!.runtime == 0,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Runtime - ${_computeRuntime(movie!.runtime)}',
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: movie!.genres.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Genres - ${movie!.genres.join(', ')}',
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: movie!.language.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: movie!.productionCompanies.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Production Company - ${movie!.productionCompanies.join(', ')}',
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: movie!.homepage.isEmpty,
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        movie!.homepage,
+                        style: const TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
+              ),
+              Offstage(
+                offstage: movie!.overview.isEmpty,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Synopsis: ${movie!.overview}',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ];
+      List<Widget> rowTwo = [
+        Column(
+          children: [
+            const Text(
+              'Recommended Films:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 15),
+            Column(
+              children: evalRec(),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+        Column(
+          children: [
+            const Text(
+              'Similar Films:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 15),
+            Column(
+              children: evalSim(),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ];
 
-      content = Column(
+      verticalContent = Column(
         children: [
           Text(
             movie!.originalTitle != '' ? movie!.originalTitle : movie!.title,
@@ -464,7 +464,44 @@ class _MovieDetailsState extends State<MovieDetails> {
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                 child: Column(
-                  children: baseComponents,
+                  children: [
+                    Column(
+                      children: rowOne,
+                    ),
+                    Column(
+                      children: rowTwo,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+      horizontalContent = Column(
+        children: [
+          Text(
+            movie!.originalTitle != '' ? movie!.originalTitle : movie!.title,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: rowOne,
+                    ),
+                    Row(
+                      children: rowTwo,
+                    )
+                  ],
                 ),
               ),
             ),
@@ -473,54 +510,60 @@ class _MovieDetailsState extends State<MovieDetails> {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            Icon(Icons.movie_creation),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Movie Lookup',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: _error
-            ? Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      widget.film,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        final width = constraints.maxWidth;
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Row(
+              children: [
+                Icon(Icons.movie_creation),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'Movie Lookup',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 15),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        'Something went wrong',
-                        textAlign: TextAlign.left,
+                ),
+              ],
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(25),
+            child: _error
+                ? Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          widget.film,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              )
-            : content,
-      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            'Something went wrong',
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : horizontalContent,
+          ),
+        );
+      },
     );
   }
 }

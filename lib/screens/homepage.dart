@@ -37,69 +37,71 @@ class _HomepageState extends State<Homepage> {
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            const SizedBox(height: 25),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    maxLength: 50,
-                    decoration: const InputDecoration(
-                      label: Text('Search for a film'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 25),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      maxLength: 50,
+                      decoration: const InputDecoration(
+                        label: Text('Search for a film'),
+                      ),
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.trim().length > 50) {
+                          return 'Please enter a search term between 1 and 50 characters';
+                        }
+                        return null;
+                      },
+                      onSaved: ((value) {
+                        _searchTerm = value!;
+                      }),
                     ),
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          value.trim().length > 50) {
-                        return 'Please enter a search term between 1 and 50 characters';
-                      }
-                      return null;
-                    },
-                    onSaved: ((value) {
-                      _searchTerm = value!;
-                    }),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (ctx) => MovieList(
-                              pageTitle: 'Search Results:',
-                              url: Uri.https(
-                                'api.themoviedb.org',
-                                '/3/search/movie',
-                                {
-                                  'api_key': dotenv.env['API_KEY'],
-                                  'language': 'en-US',
-                                  'query': _searchTerm,
-                                  'page': '1',
-                                  'include_adult': 'false'
-                                },
+                    TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) => MovieList(
+                                pageTitle: 'Search Results:',
+                                url: Uri.https(
+                                  'api.themoviedb.org',
+                                  '/3/search/movie',
+                                  {
+                                    'api_key': dotenv.env['API_KEY'],
+                                    'language': 'en-US',
+                                    'query': _searchTerm,
+                                    'page': '1',
+                                    'include_adult': 'false'
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.primary,
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      child: Text(
+                        'Search',
+                        style: TextStyle(color: Theme.of(context).colorScheme.surface),
                       ),
                     ),
-                    child: Text(
-                      'Search',
-                      style: TextStyle(color: Theme.of(context).colorScheme.surface),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
