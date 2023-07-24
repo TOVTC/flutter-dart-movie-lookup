@@ -18,7 +18,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: theme,
+      theme: theme.copyWith(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(100, 69, 88, 111),
+        ),
+      ),
       home: const Homepage(),
       // home: const MovieDetails(movieId: 647)
     );

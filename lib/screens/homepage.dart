@@ -34,7 +34,7 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      drawer: OptionsDrawer(),
+      drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
@@ -64,7 +64,6 @@ class _HomepageState extends State<Homepage> {
                   TextButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // when calling the save method, the onSaved method is triggered on all form fields
                         _formKey.currentState!.save();
                         Navigator.of(context).pop();
                         Navigator.of(context).push(
@@ -87,7 +86,15 @@ class _HomepageState extends State<Homepage> {
                         );
                       }
                     },
-                    child: const Text('Search'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    child: Text(
+                      'Search',
+                      style: TextStyle(color: Theme.of(context).colorScheme.surface),
+                    ),
                   ),
                 ],
               ),

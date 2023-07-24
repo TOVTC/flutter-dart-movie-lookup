@@ -100,8 +100,7 @@ class _MovieListState extends State<MovieList> {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: const Padding(
-                      padding:
-                          EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         'Something went wrong',
                         textAlign: TextAlign.left,
