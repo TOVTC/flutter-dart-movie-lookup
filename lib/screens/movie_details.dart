@@ -104,15 +104,26 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     for (final link in recommendedResults) {
       convertRecommended.add(
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              link.releaseDate != ''
-                  ? '${link.title} (${link.releaseDate.split('-')[0]})'
-                  : link.title,
-              key: ValueKey(link.id),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => MovieDetails(
+                  movieId: link.id,
+                ),
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                link.releaseDate != ''
+                    ? '${link.title} (${link.releaseDate.split('-')[0]})'
+                    : link.title,
+                key: ValueKey(link.id),
+              ),
             ),
           ),
         ),
@@ -152,15 +163,26 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     for (final link in similarResults) {
       convertSimilar.add(
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              link.releaseDate != ''
-                  ? '${link.title} (${link.releaseDate.split('-')[0]})'
-                  : link.title,
-              key: ValueKey(link.id),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => MovieDetails(
+                  movieId: link.id,
+                ),
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                link.releaseDate != ''
+                    ? '${link.title} (${link.releaseDate.split('-')[0]})'
+                    : link.title,
+                key: ValueKey(link.id),
+              ),
             ),
           ),
         ),
@@ -357,6 +379,7 @@ class _MovieDetailsState extends State<MovieDetails> {
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
           Expanded(
             child: Padding(
