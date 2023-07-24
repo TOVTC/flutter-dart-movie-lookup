@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
-import 'package:flutter_dart_movie_lookup/widgets/results.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,9 +10,11 @@ class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
     required this.movieId,
+    required this.film,
   });
 
   final int movieId;
+  final String film;
 
   @override
   State<MovieDetails> createState() => _MovieDetailsState();
@@ -24,6 +25,10 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   List<Widget> recommended = [];
   List<Widget> similar = [];
+
+  bool _error = false;
+  bool _recError = false;
+  bool _simError = false;
 
   List<String> _parseObjects(String propName, List<dynamic> data) {
     List<String> targetValues = [];
@@ -52,27 +57,39 @@ class _MovieDetailsState extends State<MovieDetails> {
       },
     );
 
-    final response = await http.get(url);
-    final decoded = json.decode(response.body);
+    try {
+      final response = await http.get(url);
+      final decoded = json.decode(response.body);
 
-    setState(() {
-      movie = Movie(
-        id: decoded['id'],
-        title: decoded['title'],
-        originalTitle: decoded['original_title'] ?? '',
-        posterPath: decoded['poster_path'] ?? '',
-        language: decoded['original_language'] ?? '',
-        releaseDate: decoded['release_date'] ?? '',
-        runtime: decoded['runtime'] ?? 0,
-        tagline: decoded['tagline'] ?? '',
-        homepage: decoded['homepage'] ?? '',
-        overview: decoded['overview'] ?? '',
-        genres: _parseObjects('name', decoded['genres']),
-        languages: _parseObjects('english_name', decoded['spoken_languages']),
-        productionCompanies:
-            _parseObjects('name', decoded['production_companies']),
-      );
-    });
+      if (response.statusCode >= 400) {
+        setState(() {
+          _error = true;
+        });
+      }
+
+      setState(() {
+        movie = Movie(
+          id: decoded['id'],
+          title: decoded['title'],
+          originalTitle: decoded['original_title'] ?? '',
+          posterPath: decoded['poster_path'] ?? '',
+          language: decoded['original_language'] ?? '',
+          releaseDate: decoded['release_date'] ?? '',
+          runtime: decoded['runtime'] ?? 0,
+          tagline: decoded['tagline'] ?? '',
+          homepage: decoded['homepage'] ?? '',
+          overview: decoded['overview'] ?? '',
+          genres: _parseObjects('name', decoded['genres']),
+          languages: _parseObjects('english_name', decoded['spoken_languages']),
+          productionCompanies:
+              _parseObjects('name', decoded['production_companies']),
+        );
+      });
+    } catch (err) {
+      setState(() {
+        _error = true;
+      });
+    }
   }
 
   void _getRecommended() async {
@@ -89,49 +106,64 @@ class _MovieDetailsState extends State<MovieDetails> {
       },
     );
 
-    final response = await http.get(url);
-    final decoded = json.decode(response.body);
+    try {
+      final response = await http.get(url);
+      final decoded = json.decode(response.body);
 
-    for (final movie in decoded['results']) {
-      recommendedResults.add(
-        MovieOption(
-          id: movie['id'],
-          title: movie['title'],
-          releaseDate: movie['release_date'] ?? '',
-        ),
-      );
-    }
+      if (response.statusCode >= 400) {
+        setState(() {
+          _recError = true;
+        });
+      }
 
-    for (final link in recommendedResults) {
-      convertRecommended.add(
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => MovieDetails(
-                  movieId: link.id,
+      for (final movie in decoded['results']) {
+        recommendedResults.add(
+          MovieOption(
+            id: movie['id'],
+            title: movie['title'],
+            releaseDate: movie['release_date'] ?? '',
+          ),
+        );
+      }
+
+      for (final link in recommendedResults) {
+        convertRecommended.add(
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => MovieDetails(
+                    movieId: link.id,
+                    film: link.title,
+                  ),
                 ),
-              ),
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                link.releaseDate != ''
-                    ? '${link.title} (${link.releaseDate.split('-')[0]})'
-                    : link.title,
-                key: ValueKey(link.id),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  link.releaseDate != ''
+                      ? '${link.title} (${link.releaseDate.split('-')[0]})'
+                      : link.title,
+                  key: ValueKey(link.id),
+                ),
               ),
             ),
           ),
-        ),
-      );
+        );
+      }
+
+      setState(() {
+        recommended = convertRecommended;
+      });
+      
+    } catch (err) {
+      setState(() {
+        _recError = true;
+      });
     }
-    setState(() {
-      recommended = convertRecommended;
-    });
   }
 
   void _getSimilar() async {
@@ -148,49 +180,64 @@ class _MovieDetailsState extends State<MovieDetails> {
       },
     );
 
-    final response = await http.get(url);
-    final decoded = json.decode(response.body);
+    try {
+      final response = await http.get(url);
+      final decoded = json.decode(response.body);
 
-    for (final movie in decoded['results']) {
-      similarResults.add(
-        MovieOption(
-          id: movie['id'],
-          title: movie['title'],
-          releaseDate: movie['release_date'] ?? '',
-        ),
-      );
-    }
+      if (response.statusCode >= 400) {
+        setState(() {
+          _simError = true;
+        });
+      }
 
-    for (final link in similarResults) {
-      convertSimilar.add(
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => MovieDetails(
-                  movieId: link.id,
+      for (final movie in decoded['results']) {
+        similarResults.add(
+          MovieOption(
+            id: movie['id'],
+            title: movie['title'],
+            releaseDate: movie['release_date'] ?? '',
+          ),
+        );
+      }
+
+      for (final link in similarResults) {
+        convertSimilar.add(
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => MovieDetails(
+                    movieId: link.id,
+                    film: link.title,
+                  ),
                 ),
-              ),
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                link.releaseDate != ''
-                    ? '${link.title} (${link.releaseDate.split('-')[0]})'
-                    : link.title,
-                key: ValueKey(link.id),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  link.releaseDate != ''
+                      ? '${link.title} (${link.releaseDate.split('-')[0]})'
+                      : link.title,
+                  key: ValueKey(link.id),
+                ),
               ),
             ),
           ),
-        ),
-      );
+        );
+      }
+
+      setState(() {
+        similar = convertSimilar;
+      });
+
+    } catch (err) {
+      setState(() {
+        _simError = true;
+      });
     }
-    setState(() {
-      similar = convertSimilar;
-    });
   }
 
   @override
@@ -348,7 +395,9 @@ class _MovieDetailsState extends State<MovieDetails> {
           ),
           const SizedBox(height: 15),
         ]);
-        if (recommended.isNotEmpty) {
+        if (_recError) {
+          baseComponents.add(const Text('Something went wrong'));
+        } else if (recommended.isNotEmpty) {
           baseComponents.addAll(recommended);
         } else {
           baseComponents.add(const Text('Nothing to display'));
@@ -364,7 +413,9 @@ class _MovieDetailsState extends State<MovieDetails> {
           ),
           const SizedBox(height: 15),
         ]);
-        if (similar.isNotEmpty) {
+        if (_simError) {
+          baseComponents.add(const Text('Something went wrong'));
+        } else if (similar.isNotEmpty) {
           baseComponents.addAll(similar);
         } else {
           baseComponents.add(const Text('Nothing to display'));
@@ -415,7 +466,32 @@ class _MovieDetailsState extends State<MovieDetails> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: content,
+        child: _error ? Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.film,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.all(8),
+                      child: Text(
+                        'Something went wrong',
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                ],
+              ) : content,
       ),
     );
   }

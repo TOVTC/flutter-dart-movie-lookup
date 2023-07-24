@@ -30,6 +30,7 @@ class _ResultsState extends State<Results> {
               MaterialPageRoute(
                 builder: (ctx) => MovieDetails(
                   movieId: widget.searchResults[index].id,
+                  film: widget.searchResults[index].title,
                 ),
               ),
             );

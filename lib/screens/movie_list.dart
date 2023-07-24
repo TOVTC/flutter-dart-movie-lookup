@@ -23,21 +23,35 @@ class MovieList extends StatefulWidget {
 
 class _MovieListState extends State<MovieList> {
   List<MovieOption> searchResults = [];
+  bool _error = false;
 
   void _search() async {
-    final response = await http.get(widget.url);
-    final decoded = json.decode(response.body);
-    setState(() {
-      for (final movie in decoded['results']) {
-        searchResults.add(
-          MovieOption(
-            id: movie['id'],
-            title: movie['title'],
-            releaseDate: movie['release_date'] ?? '',
-          ),
-        );
+    try {
+      final response = await http.get(widget.url);
+      final decoded = json.decode(response.body);
+
+      if (response.statusCode >= 400) {
+        setState(() {
+          _error = true;
+        });
       }
-    });
+
+      setState(() {
+        for (final movie in decoded['results']) {
+          searchResults.add(
+            MovieOption(
+              id: movie['id'],
+              title: movie['title'],
+              releaseDate: movie['release_date'] ?? '',
+            ),
+          );
+        }
+      });
+    } catch (err) {
+      setState(() {
+        _error = true;
+      });
+    }
   }
 
   @override
@@ -69,10 +83,37 @@ class _MovieListState extends State<MovieList> {
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: Results(
-          pageTitle: widget.pageTitle,
-          searchResults: searchResults,
-        ),
+        child: _error
+            ? Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      widget.pageTitle,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.all(8),
+                      child: Text(
+                        'Something went wrong',
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Results(
+                pageTitle: widget.pageTitle,
+                searchResults: searchResults,
+              ),
       ),
     );
   }
