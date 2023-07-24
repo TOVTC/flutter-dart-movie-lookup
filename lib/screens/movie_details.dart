@@ -5,6 +5,7 @@ import 'package:flutter_dart_movie_lookup/models/movie.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
@@ -290,20 +291,20 @@ class _MovieDetailsState extends State<MovieDetails> {
               ),
               const SizedBox(height: 20),
               Offstage(
-                  offstage: movie!.tagline.isEmpty,
-                  child: Column(
-                    children: [
-                      Text(
-                        '"${movie!.tagline}"',
-                        style: const TextStyle(
-                          fontStyle: FontStyle.italic,
-                        ),
-                        textAlign: TextAlign.center,
+                offstage: movie!.tagline.isEmpty,
+                child: Column(
+                  children: [
+                    Text(
+                      '"${movie!.tagline}"',
+                      style: const TextStyle(
+                        fontStyle: FontStyle.italic,
                       ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
+              ),
             ],
           ),
         ),
@@ -386,9 +387,15 @@ class _MovieDetailsState extends State<MovieDetails> {
                   children: [
                     Container(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        movie!.homepage,
-                        style: const TextStyle(color: Colors.blue),
+                      child: GestureDetector(
+                        onTap: () => launchUrl(
+                          // PROPERLY FORMAT URI PARAMETERS
+                          Uri.https(movie!.homepage),
+                        ),
+                        child: Text(
+                          movie!.homepage,
+                          style: const TextStyle(color: Colors.blue),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -473,8 +480,8 @@ class _MovieDetailsState extends State<MovieDetails> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20),
-              child:ListView(
-                  children: combineColumns(),
+              child: ListView(
+                children: combineColumns(),
               ),
             ),
           ),
