@@ -70,7 +70,7 @@ class _HomepageState extends State<Homepage> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (ctx) => MovieList(
-                                pageTitle: 'Search Results:',
+                                pageTitle: 'Search Results for "$_searchTerm":',
                                 url: Uri.https(
                                   'api.themoviedb.org',
                                   '/3/search/movie',
