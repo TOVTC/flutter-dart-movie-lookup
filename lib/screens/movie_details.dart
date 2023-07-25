@@ -31,6 +31,7 @@ class _MovieDetailsState extends State<MovieDetails> {
   bool _recError = false;
   bool _simError = false;
 
+  // retrieves "name" property from genre, language, and company sub-objects
   List<String> _parseObjects(String propName, List<dynamic> data) {
     List<String> targetValues = [];
 
@@ -388,10 +389,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
-                        onTap: () => launchUrl(
-                          // PROPERLY FORMAT URI PARAMETERS
-                          Uri.https(movie!.homepage),
-                        ),
+                        onTap: () {
+                          final Uri url = Uri.parse(movie!.homepage);
+                          launchUrl(url);
+                        },
                         child: Text(
                           movie!.homepage,
                           style: const TextStyle(color: Colors.blue),
@@ -421,6 +422,7 @@ class _MovieDetailsState extends State<MovieDetails> {
           ),
         ),
       ];
+
       List<Widget> rowTwo = [
         Expanded(
           child: Column(
@@ -467,6 +469,8 @@ class _MovieDetailsState extends State<MovieDetails> {
         return vertical;
       }
 
+      // verticalContent generates Incorrect use of ParentDataWidget error because the columns are wrapped in Expanded()
+      // but Expanded is required for horizontalContent layout - could refactot, but it works still, so
       verticalContent = Column(
         children: [
           Text(
