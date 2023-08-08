@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localization/localization.dart';
 import '../screens/movie_list.dart';
+import '../main.dart';
 import 'dart:io';
 
 class OptionsDrawer extends StatelessWidget {
@@ -11,6 +12,7 @@ class OptionsDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context);
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -64,7 +66,9 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/trending/movie/day',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': context
+                                .findAncestorStateOfType<AppState>()!
+                                .getLocale(),
                             'page': '1',
                           },
                         ),
@@ -90,7 +94,9 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/popular',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': context
+                                .findAncestorStateOfType<AppState>()!
+                                .getLocale(),
                             'page': '1',
                           },
                         ),
@@ -116,7 +122,9 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/top_rated',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': context
+                                .findAncestorStateOfType<AppState>()!
+                                .getLocale(),
                             'page': '1',
                           },
                         ),
@@ -142,7 +150,9 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/now_playing',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': context
+                                .findAncestorStateOfType<AppState>()!
+                                .getLocale(),
                             'page': '1',
                           },
                         ),
@@ -152,6 +162,24 @@ class OptionsDrawer extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                onPressed: () {
+                  final myApp = context.findAncestorStateOfType<AppState>()!;
+                  myApp.changeLocale(locale == const Locale('es', 'ES')
+                      ? const Locale('en', 'US')
+                      : const Locale('es', 'ES'));
+                },
+                child: Text(
+                  "change-value".i18n(),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.surface),
+                ),
+              ),
             ],
           ),
         ),

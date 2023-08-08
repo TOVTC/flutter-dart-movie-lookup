@@ -13,13 +13,31 @@ void main() async {
   runApp(const App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
+
+  @override
+  State<App> createState() => AppState();
+}
+
+class AppState extends State<App> {
+  Locale? _locale;
+
+  changeLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  getLocale() {
+    return _locale;
+  }
 
   @override
   Widget build(BuildContext context) {
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
     return MaterialApp(
+      locale: _locale,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
