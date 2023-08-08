@@ -42,6 +42,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  localization: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
     - .env
     - assets/tmdb.svg
     - assets/favicon.png
+    - lib/i18n/
 
   generate: true
 
