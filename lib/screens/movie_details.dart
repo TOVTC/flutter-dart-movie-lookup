@@ -13,10 +13,12 @@ class MovieDetails extends StatefulWidget {
     super.key,
     required this.movieId,
     required this.film,
+    required this.locale
   });
 
   final int movieId;
   final String film;
+  final String locale;
 
   @override
   State<MovieDetails> createState() => _MovieDetailsState();
@@ -57,7 +59,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '3/movie/${widget.movieId}',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': Platform.localeName.split('_').join('-'),
+        'language': widget.locale,
       },
     );
 
@@ -105,7 +107,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/recommendations',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': Platform.localeName.split('_').join('-'),
+        'language': widget.locale,
         'page': '1',
       },
     );
@@ -139,6 +141,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   builder: (ctx) => MovieDetails(
                     movieId: link.id,
                     film: link.title,
+                    locale: widget.locale
                   ),
                 ),
               );
@@ -178,7 +181,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/similar',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': Platform.localeName.split('_').join('-'),
+        'language': widget.locale,
         'page': '1',
       },
     );
@@ -212,6 +215,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   builder: (ctx) => MovieDetails(
                     movieId: link.id,
                     film: link.title,
+                    locale: widget.locale
                   ),
                 ),
               );

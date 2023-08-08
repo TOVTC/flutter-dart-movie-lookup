@@ -32,6 +32,7 @@ class _ResultsState extends State<Results> {
                 builder: (ctx) => MovieDetails(
                   movieId: widget.searchResults[index].id,
                   film: widget.searchResults[index].title,
+                  locale: Localizations.localeOf(context).toString()
                 ),
               ),
             );

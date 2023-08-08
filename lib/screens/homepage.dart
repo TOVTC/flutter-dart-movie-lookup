@@ -79,7 +79,7 @@ class _HomepageState extends State<Homepage> {
                                   '/3/search/movie',
                                   {
                                     'api_key': dotenv.env['API_KEY'],
-                                    'language': Platform.localeName.split('_').join('-'),
+                                    'language': Localizations.localeOf(context).toString(),
                                     'query': _searchTerm,
                                     'page': '1',
                                     'include_adult': 'false'
