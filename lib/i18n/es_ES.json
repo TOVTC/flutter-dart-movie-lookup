@@ -6,9 +6,18 @@
     "search-results-title": "Resultados de la búsqueda de \"%s\":",
     "error": "Algo salió mal",
     "no-results": "Nada que mostrar",
+    "loading": "Cargando...",
     "powered-by": "Energizado por...",
     "trending": "Tendencias",
     "popular": "Popular",
     "top-rated": "Los Más Valorados",
-    "now-playing": "Jugando Ahora"
+    "now-playing": "Jugando Ahora",
+    "release-date": "Fecha de Lanzamiento",
+    "runtime": "Tiempo de Ejecución",
+    "genres": "Géneros",
+    "languages": "Idiomas",
+    "production-company": "Compania de Produccion",
+    "synopsis": "Sinopsis",
+    "recommended-films": "Películas Recomendadas",
+    "similar-films": "Películas Similares"
 }

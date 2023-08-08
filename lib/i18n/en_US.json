@@ -6,9 +6,18 @@
     "search-results-title": "Search Results for \"%s\":",
     "error": "Something went wrong",
     "no-results": "Nada que mostrar",
+    "loading": "Loading...",
     "powered-by": "Powered by...",
     "trending": "Trending",
     "popular": "Popular",
     "top-rated": "Top Rated",
-    "now-playing": "Now Playing"
+    "now-playing": "Now Playing",
+    "release-date": "Release Date",
+    "runtime": "Runtime",
+    "genres": "Genres",
+    "languages": "Languages",
+    "production-company": "Production Company",
+    "synopsis": "Synopsis",
+    "recommended-films": "Recommended Films",
+    "similar-films": "Similar Films"
 }
