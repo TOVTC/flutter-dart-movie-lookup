@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:localization/localization.dart';
 import '../widgets/options_drawer.dart';
 import '../widgets/results.dart';
 
@@ -64,15 +63,15 @@ class _MovieListState extends State<MovieList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.movie_creation),
-            SizedBox(
+            const Icon(Icons.movie_creation),
+            const SizedBox(
               width: 10,
             ),
             Text(
-              'Movie Lookup',
-              style: TextStyle(
+              'movie-lookup'.i18n(),
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
@@ -99,10 +98,10 @@ class _MovieListState extends State<MovieList> {
                   const SizedBox(height: 15),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
                       child: Text(
-                        'Something went wrong',
+                        'error'.i18n(),
                         textAlign: TextAlign.left,
                       ),
                     ),

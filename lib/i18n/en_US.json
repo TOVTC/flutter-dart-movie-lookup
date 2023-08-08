@@ -3,5 +3,12 @@
     "search-placeholder": "Search for a film",
     "search-validation": "Please enter a search term between 1 and 50 characters",
     "search": "Search",
-    "search-results-title": "Search Results for %s:"
+    "search-results-title": "Search Results for \"%s\":",
+    "error": "Something went wrong",
+    "no-results": "Nada que mostrar",
+    "powered-by": "Powered by...",
+    "trending": "Trending",
+    "popular": "Popular",
+    "top-rated": "Top Rated",
+    "now-playing": "Now Playing"
 }
