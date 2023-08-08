@@ -42,3 +42,9 @@
     
   ## Questions?<a name="questions"></a>
   Contact repository author via [GitHub](https://github.com/TOVTC).</br>
+
+<!-- https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv -->
+<!-- for debugging .env -->
+
+<!-- https://stackoverflow.com/questions/50923906/how-to-get-timezone-language-and-county-id-in-flutter-by-the-location-of-device -->
+<!-- for detecting application's current locale -->

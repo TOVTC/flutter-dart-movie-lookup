@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dart_movie_lookup/screens/movie_details.dart';
+import 'package:localization/localization.dart';
 
 class Results extends StatefulWidget {
   const Results({
@@ -17,7 +18,7 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
-  Widget content = const Text('Nothing to display');
+  Widget content = Text('no-results'.i18n());
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:localization/localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
@@ -56,6 +57,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '3/movie/${widget.movieId}',
       {
         'api_key': dotenv.env['API_KEY'],
+        'language': Platform.localeName.split('_').join('-'),
       },
     );
 
@@ -103,7 +105,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/recommendations',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': 'en-US',
+        'language': Platform.localeName.split('_').join('-'),
         'page': '1',
       },
     );
@@ -176,7 +178,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/similar',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': 'en-US',
+        'language': Platform.localeName.split('_').join('-'),
         'page': '1',
       },
     );
@@ -250,27 +252,27 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   @override
   Widget build(BuildContext context) {
-    Widget verticalContent = const Text('Loading...');
-    Widget horizontalContent = const Text('Loading...');
+    Widget verticalContent = Text('loading'.i18n());
+    Widget horizontalContent = Text('loading'.i18n());
 
     if (movie != null) {
       List<Widget> evalRec() {
         if (_recError) {
-          return const [Text('Something went wrong')];
+          return [Text('error'.i18n())];
         } else if (recommended.isNotEmpty) {
           return recommended;
         } else {
-          return const [Text('Nothing to display')];
+          return [Text('no-results'.i18n())];
         }
       }
 
       List<Widget> evalSim() {
         if (_simError) {
-          return const [Text('Something went wrong')];
+          return [Text('error'.i18n())];
         } else if (similar.isNotEmpty) {
           return similar;
         } else {
-          return const [Text('Nothing to display')];
+          return [Text('no-results'.i18n())];
         }
       }
 
@@ -319,7 +321,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Release Date - ${movie!.releaseDate}',
+                        '${'release-date'.i18n()} - ${movie!.releaseDate}',
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -333,7 +335,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Runtime - ${_computeRuntime(movie!.runtime)}',
+                        '${'runtime'.i18n()} - ${_computeRuntime(movie!.runtime)}',
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -347,7 +349,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Genres - ${movie!.genres.join(', ')}',
+                        '${'genres'.i18n()} - ${movie!.genres.join(', ')}',
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -361,7 +363,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Languages (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
+                        '${'languages'.i18n()} (${movie!.language})${movie!.languages.isNotEmpty ? ' - ${movie!.languages.join(', ')}' : ''}',
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -375,7 +377,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Production Company - ${movie!.productionCompanies.join(', ')}',
+                        '${'production-company'.i18n()} - ${movie!.productionCompanies.join(', ')}',
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -411,7 +413,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Synopsis: ${movie!.overview}',
+                        '${'synopsis'.i18n()}: ${movie!.overview}',
                       ),
                     ),
                   ],
@@ -427,9 +429,9 @@ class _MovieDetailsState extends State<MovieDetails> {
         Expanded(
           child: Column(
             children: [
-              const Text(
-                'Recommended Films:',
-                style: TextStyle(
+              Text(
+                '${'recommended-films'.i18n()}:',
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -445,9 +447,9 @@ class _MovieDetailsState extends State<MovieDetails> {
         Expanded(
           child: Column(
             children: [
-              const Text(
-                'Similar Films:',
-                style: TextStyle(
+              Text(
+                '${'similar-films'.i18n()}:',
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -529,15 +531,15 @@ class _MovieDetailsState extends State<MovieDetails> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Row(
+            title: Row(
               children: [
-                Icon(Icons.movie_creation),
-                SizedBox(
+                const Icon(Icons.movie_creation),
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  'Movie Lookup',
-                  style: TextStyle(
+                  'movie-lookup'.i18n(),
+                  style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -563,10 +565,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                       const SizedBox(height: 15),
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: const Padding(
-                          padding: EdgeInsets.all(8),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
                           child: Text(
-                            'Something went wrong',
+                            'error'.i18n(),
                             textAlign: TextAlign.left,
                           ),
                         ),
