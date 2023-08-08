@@ -1,3 +1,7 @@
 {
-    "hello-world": "¡Hola Mundo!"
+    "movie-lookup": "Búsqueda de películas",
+    "search-placeholder": "Buscar una película",
+    "search-validation": "Ingrese un término de búsqueda entre 1 y 50 caracteres",
+    "search": "Buscar",
+    "search-results-title": "Resultados de la búsqueda de %s:"
 }

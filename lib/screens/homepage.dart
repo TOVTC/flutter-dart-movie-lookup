@@ -19,15 +19,15 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.movie_creation),
-            SizedBox(
+            const Icon(Icons.movie_creation),
+            const SizedBox(
               width: 10,
             ),
             Text(
-              'Movie Lookup',
-              style: TextStyle(
+              'movie-lookup'.i18n(),
+              style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
@@ -49,13 +49,13 @@ class _HomepageState extends State<Homepage> {
                     TextFormField(
                       maxLength: 50,
                       decoration: InputDecoration(
-                        label: Text('hello-world'.i18n()),
+                        label: Text('search-placeholder'.i18n()),
                       ),
                       validator: (value) {
                         if (value == null ||
                             value.isEmpty ||
                             value.trim().length > 50) {
-                          return 'Please enter a search term between 1 and 50 characters';
+                          return 'search-validation'.i18n();
                         }
                         return null;
                       },
@@ -71,7 +71,7 @@ class _HomepageState extends State<Homepage> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (ctx) => MovieList(
-                                pageTitle: 'Search Results for "$_searchTerm":',
+                                pageTitle: 'search-results-title'.i18n([_searchTerm]),
                                 url: Uri.https(
                                   'api.themoviedb.org',
                                   '/3/search/movie',
@@ -94,7 +94,7 @@ class _HomepageState extends State<Homepage> {
                         ),
                       ),
                       child: Text(
-                        'Search',
+                        'search'.i18n(),
                         style: TextStyle(color: Theme.of(context).colorScheme.surface),
                       ),
                     ),
