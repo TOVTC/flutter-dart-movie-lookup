@@ -12,7 +12,7 @@ class OptionsDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context);
+    String locale = Platform.localeName.split('_').join('-');
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -66,9 +66,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/trending/movie/day',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': context
-                                .findAncestorStateOfType<AppState>()!
-                                .getLocale(),
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -94,9 +92,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/popular',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': context
-                                .findAncestorStateOfType<AppState>()!
-                                .getLocale(),
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -122,9 +118,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/top_rated',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': context
-                                .findAncestorStateOfType<AppState>()!
-                                .getLocale(),
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -150,9 +144,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/now_playing',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': context
-                                .findAncestorStateOfType<AppState>()!
-                                .getLocale(),
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -170,7 +162,7 @@ class OptionsDrawer extends StatelessWidget {
                 ),
                 onPressed: () {
                   final myApp = context.findAncestorStateOfType<AppState>()!;
-                  myApp.changeLocale(locale == const Locale('es', 'ES')
+                  myApp.changeLocale(locale == const Locale('es', 'ES').toString()
                       ? const Locale('en', 'US')
                       : const Locale('es', 'ES'));
                 },

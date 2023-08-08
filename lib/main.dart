@@ -29,10 +29,6 @@ class AppState extends State<App> {
     });
   }
 
-  getLocale() {
-    return _locale;
-  }
-
   @override
   Widget build(BuildContext context) {
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
