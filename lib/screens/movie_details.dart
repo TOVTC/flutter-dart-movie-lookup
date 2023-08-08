@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
@@ -56,6 +57,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '3/movie/${widget.movieId}',
       {
         'api_key': dotenv.env['API_KEY'],
+        'language': Platform.localeName.split('_').join('-'),
       },
     );
 
@@ -103,7 +105,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/recommendations',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': 'en-US',
+        'language': Platform.localeName.split('_').join('-'),
         'page': '1',
       },
     );
@@ -176,7 +178,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/similar',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': 'en-US',
+        'language': Platform.localeName.split('_').join('-'),
         'page': '1',
       },
     );

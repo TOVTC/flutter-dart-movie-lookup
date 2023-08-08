@@ -3,6 +3,7 @@ import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
 import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:localization/localization.dart';
+import 'dart:io';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -17,6 +18,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -77,7 +79,7 @@ class _HomepageState extends State<Homepage> {
                                   '/3/search/movie',
                                   {
                                     'api_key': dotenv.env['API_KEY'],
-                                    'language': 'en-US',
+                                    'language': Platform.localeName.split('_').join('-'),
                                     'query': _searchTerm,
                                     'page': '1',
                                     'include_adult': 'false'

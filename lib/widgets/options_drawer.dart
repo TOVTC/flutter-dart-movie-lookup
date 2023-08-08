@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localization/localization.dart';
 import '../screens/movie_list.dart';
+import 'dart:io';
 
 class OptionsDrawer extends StatelessWidget {
   const OptionsDrawer({super.key});
@@ -63,7 +64,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/trending/movie/day',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': 'en-US',
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -89,7 +90,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/popular',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': 'en-US',
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -115,7 +116,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/top_rated',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': 'en-US',
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -141,7 +142,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/now_playing',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': 'en-US',
+                            'language': Platform.localeName.split('_').join('-'),
                             'page': '1',
                           },
                         ),
