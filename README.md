@@ -5,7 +5,7 @@
   Powered by the TMDB api, this Flutter/Dart application hosts a simple Android OS application that allows users to search for and view details of movies.
   
   ## Table of Contents
-  
+  * [Bonus Features](#features)
   * [Installation](#installation)
   * [Built With](#built)
   * [Usage Information](#usage)
@@ -13,14 +13,19 @@
   * [License](#license)
   * [Contact](#questions)
   
+  ## Bonus Features<a name="features"></a>
+  This application also features bilingual language support for English (en-US) and Spanish (es-ES). (Translations unfortunately provided by Google Translate, please don't come for me 🥺)
+  
   ## Installation<a name="installation"></a>
-  To view this application, ensure that you have installed Andoid Studio. After cloning the repository, launch the emulator from VS Code using ctrl + shift + p and press f5 to run the application debug mode.
+  To view this application, ensure that you have installed Android Studio. After cloning the repository, launch the emulator from VS Code using ctrl + shift + p and press f5 to run the application debug mode.
   
   ## Built With<a name="built"></a>
   * Flutter
   * Dart
   * Android Studio
   * TMDB api
+  * flutter_localizations
+  * localization
 
   ## Usage Information<a name="usage"></a>
   
@@ -28,12 +33,15 @@
   </br>![Flutter Movie Lookup](./assets/screencaptures/row-one.png "Flutter Movie Lookup")</br>
   </br>![Flutter Movie Lookup](./assets/screencaptures/row-two.png "Flutter Movie Lookup")</br>
   </br>![Flutter Movie Lookup](./assets/screencaptures/row-three.png "Flutter Movie Lookup")</br>
+  </br>![Flutter Movie Lookup](./assets/screencaptures/row-three-point-five.png "Flutter Movie Lookup")</br>
   </br>![Flutter Movie Lookup](./assets/screencaptures/row-four.png "Flutter Movie Lookup")</br>
   
   ## Authors & Acknowledgements<a name="credits"></a>
   
   This application is powered but not endorsed or certified by the TMDB api.</br>
-  Special thanks to ASH's answer [here](https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv) on debugging .env errors
+  Special thanks to ASH's answer [here](https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv) on debugging .env errors</br>
+  And Alexander's response [here](https://stackoverflow.com/questions/50923906/how-to-get-timezone-language-and-county-id-in-flutter-by-the-location-of-device) on retrieving the locale of the current device
+
   
   Made by [TOVTC](https://github.com/TOVTC).
   
@@ -42,9 +50,3 @@
     
   ## Questions?<a name="questions"></a>
   Contact repository author via [GitHub](https://github.com/TOVTC).</br>
-
-<!-- https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv -->
-<!-- for debugging .env -->
-
-<!-- https://stackoverflow.com/questions/50923906/how-to-get-timezone-language-and-county-id-in-flutter-by-the-location-of-device -->
-<!-- for detecting application's current locale -->
