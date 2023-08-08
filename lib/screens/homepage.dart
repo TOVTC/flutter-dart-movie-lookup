@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
 import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:localization/localization.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -47,8 +48,8 @@ class _HomepageState extends State<Homepage> {
                   children: [
                     TextFormField(
                       maxLength: 50,
-                      decoration: const InputDecoration(
-                        label: Text('Search for a film'),
+                      decoration: InputDecoration(
+                        label: Text('hello-world'.i18n()),
                       ),
                       validator: (value) {
                         if (value == null ||

@@ -26,6 +26,10 @@ class App extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         LocalJsonLocalization.delegate
       ],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('es', 'ES'),
+      ],
       theme: theme.copyWith(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(

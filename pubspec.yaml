@@ -41,7 +41,6 @@ dependencies:
   url_launcher: ^6.1.12
   flutter_localizations:
     sdk: flutter
-  intl: any
   localization: ^2.1.0
 
 dev_dependencies:
@@ -65,8 +64,6 @@ flutter:
     - assets/tmdb.svg
     - assets/favicon.png
     - lib/i18n/
-
-  # generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
