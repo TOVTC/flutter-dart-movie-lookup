@@ -11,10 +11,12 @@ class MovieList extends StatefulWidget {
     super.key,
     required this.pageTitle,
     required this.url,
+    required this.setLocale,
   });
 
   final String pageTitle;
   final Uri url;
+  final VoidCallback setLocale;
 
   @override
   State<MovieList> createState() => _MovieListState();
@@ -79,7 +81,7 @@ class _MovieListState extends State<MovieList> {
           ],
         ),
       ),
-      drawer: const OptionsDrawer(),
+      drawer: OptionsDrawer(setLocale: widget.setLocale,),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: _error

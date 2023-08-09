@@ -4,11 +4,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localization/localization.dart';
 import '../screens/movie_list.dart';
-import '../main.dart';
-import 'dart:io';
 
 class OptionsDrawer extends StatelessWidget {
-  const OptionsDrawer({super.key});
+  const OptionsDrawer({super.key, required this.setLocale});
+  final VoidCallback setLocale;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class OptionsDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (ctx) => const Homepage(),
+                      builder: (ctx) => Homepage(setLocale: setLocale),
                     ),
                   );
                 },
@@ -69,6 +68,7 @@ class OptionsDrawer extends StatelessWidget {
                             'page': '1',
                           },
                         ),
+                        setLocale: setLocale,
                       ),
                     ),
                   );
@@ -95,6 +95,7 @@ class OptionsDrawer extends StatelessWidget {
                             'page': '1',
                           },
                         ),
+                        setLocale: setLocale,
                       ),
                     ),
                   );
@@ -121,6 +122,7 @@ class OptionsDrawer extends StatelessWidget {
                             'page': '1',
                           },
                         ),
+                        setLocale: setLocale,
                       ),
                     ),
                   );
@@ -147,6 +149,7 @@ class OptionsDrawer extends StatelessWidget {
                             'page': '1',
                           },
                         ),
+                        setLocale: setLocale,
                       ),
                     ),
                   );
@@ -160,10 +163,7 @@ class OptionsDrawer extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  final myApp = context.findAncestorStateOfType<AppState>()!;
-                  myApp.changeLocale(Localizations.localeOf(context).toString() == const Locale('es', 'ES').toString()
-                      ? const Locale('en', 'US')
-                      : const Locale('es', 'ES'));
+                  setLocale();
                 },
                 child: Text(
                   "change-value".i18n(),

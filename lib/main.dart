@@ -3,6 +3,7 @@ import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
+import 'dart:io';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -21,11 +22,14 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  Locale? _locale;
+  Locale _locale = Locale(
+      Platform.localeName.split('_')[0], Platform.localeName.split('_')[1]);
 
-  changeLocale(Locale locale) {
+  void changeLocale() {
     setState(() {
-      _locale = locale;
+      _locale == const Locale('en', 'US')
+          ? _locale = const Locale('es', 'ES')
+          : _locale = const Locale('en', 'US');
     });
   }
 
@@ -50,7 +54,7 @@ class AppState extends State<App> {
           seedColor: const Color.fromARGB(100, 69, 88, 111),
         ),
       ),
-      home: const Homepage(),
+      home: Homepage(setLocale: changeLocale),
     );
   }
 }

@@ -3,10 +3,10 @@ import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
 import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:localization/localization.dart';
-import 'dart:io';
 
 class Homepage extends StatefulWidget {
-  const Homepage({super.key});
+  const Homepage({super.key, required this.setLocale});
+  final VoidCallback setLocale;
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -14,7 +14,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final _formKey = GlobalKey<FormState>();
-  var _searchTerm = '';
+  String _searchTerm = '';
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      drawer: const OptionsDrawer(),
+      drawer: OptionsDrawer(setLocale: widget.setLocale),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: SingleChildScrollView(
@@ -85,6 +85,7 @@ class _HomepageState extends State<Homepage> {
                                     'include_adult': 'false'
                                   },
                                 ),
+                                setLocale: widget.setLocale,
                               ),
                             ),
                           );
