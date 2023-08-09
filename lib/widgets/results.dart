@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dart_movie_lookup/screens/movie_details.dart';
 import 'package:localization/localization.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
 
-class Results extends StatefulWidget {
+class Results extends ConsumerStatefulWidget {
   const Results({
     super.key,
     required this.pageTitle,
@@ -14,10 +16,10 @@ class Results extends StatefulWidget {
   final List<MovieOption> searchResults;
 
   @override
-  State<Results> createState() => _ResultsState();
+  ConsumerState<Results> createState() => _ResultsState();
 }
 
-class _ResultsState extends State<Results> {
+class _ResultsState extends ConsumerState<Results> {
   Widget content = Text('no-results'.i18n());
 
   @override
@@ -32,6 +34,7 @@ class _ResultsState extends State<Results> {
                 builder: (ctx) => MovieDetails(
                   movieId: widget.searchResults[index].id,
                   film: widget.searchResults[index].title,
+                  locale: ref.watch(localeProvider).toString().split('_').join('-'),
                 ),
               ),
             );

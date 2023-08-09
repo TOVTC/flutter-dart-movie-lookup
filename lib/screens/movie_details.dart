@@ -10,21 +10,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
 import 'dart:io';
 
-class MovieDetails extends ConsumerStatefulWidget {
+class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
     required this.movieId,
     required this.film,
+    required this.locale,
   });
 
   final int movieId;
   final String film;
+  final String locale;
 
   @override
-  ConsumerState<MovieDetails> createState() => _MovieDetailsState();
+  State<MovieDetails> createState() => _MovieDetailsState();
 }
 
-class _MovieDetailsState extends ConsumerState<MovieDetails> {
+class _MovieDetailsState extends State<MovieDetails> {
   Movie? movie;
 
   List<Widget> recommended = [];
@@ -59,7 +61,7 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
       '3/movie/${widget.movieId}',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': ref.watch(localeProvider).toString().split('_').join('-'),
+        'language': widget.locale,
       },
     );
 
@@ -107,7 +109,7 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
       '/3/movie/${widget.movieId}/recommendations',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': ref.watch(localeProvider).toString().split('_').join('-'),
+        'language': widget.locale,
         'page': '1',
       },
     );
@@ -141,6 +143,7 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
                   builder: (ctx) => MovieDetails(
                     movieId: link.id,
                     film: link.title,
+                    locale: widget.locale,
                   ),
                 ),
               );
@@ -180,7 +183,7 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
       '/3/movie/${widget.movieId}/similar',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': ref.watch(localeProvider).toString().split('_').join('-'),
+        'language': widget.locale,
         'page': '1',
       },
     );
@@ -214,6 +217,7 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
                   builder: (ctx) => MovieDetails(
                     movieId: link.id,
                     film: link.title,
+                    locale: widget.locale,
                   ),
                 ),
               );

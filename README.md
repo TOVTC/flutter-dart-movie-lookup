@@ -29,6 +29,7 @@
   * url_launcher
   * flutter_localizations
   * localization
+  * flutter_riverpod
 
   ## Usage Information<a name="usage"></a>
   
