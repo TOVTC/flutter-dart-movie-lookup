@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localization/localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
-import 'dart:io';
 import '../screens/movie_list.dart';
 
 class OptionsDrawer extends ConsumerWidget {
@@ -164,6 +163,12 @@ class OptionsDrawer extends ConsumerWidget {
                 ),
                 onPressed: () {
                   ref.read(localeProvider.notifier).setLocale();
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => const Homepage(),
+                    ),
+                  );
                 },
                 child: Text(
                   "change-language".i18n(),

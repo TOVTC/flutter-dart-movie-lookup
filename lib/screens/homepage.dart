@@ -5,7 +5,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:localization/localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
-import 'dart:io';
 
 class Homepage extends ConsumerStatefulWidget {
   const Homepage({super.key});
