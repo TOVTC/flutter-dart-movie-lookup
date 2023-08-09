@@ -24,6 +24,9 @@
   * Dart
   * Android Studio
   * TMDB api
+  * flutter_dotenv
+  * flutter_svg
+  * url_launcher
   * flutter_localizations
   * localization
 

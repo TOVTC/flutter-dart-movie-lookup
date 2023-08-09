@@ -3,6 +3,8 @@ import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -10,16 +12,22 @@ final theme = ThemeData(
 
 void main() async {
   await dotenv.load(fileName: '.env');
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
+
     return MaterialApp(
+      locale: ref.watch(localeProvider),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

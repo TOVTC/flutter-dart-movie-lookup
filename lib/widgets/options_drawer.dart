@@ -3,14 +3,16 @@ import 'package:flutter_dart_movie_lookup/screens/homepage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localization/localization.dart';
-import '../screens/movie_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
 import 'dart:io';
+import '../screens/movie_list.dart';
 
-class OptionsDrawer extends StatelessWidget {
+class OptionsDrawer extends ConsumerWidget {
   const OptionsDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -64,7 +66,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/trending/movie/day',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -90,7 +92,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/popular',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -116,7 +118,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/top_rated',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
                             'page': '1',
                           },
                         ),
@@ -142,7 +144,7 @@ class OptionsDrawer extends StatelessWidget {
                           '/3/movie/now_playing',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': Platform.localeName.split('_').join('-'),
+                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
                             'page': '1',
                           },
                         ),

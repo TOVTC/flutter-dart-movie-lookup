@@ -6,9 +6,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
 import 'dart:io';
 
-class MovieDetails extends StatefulWidget {
+class MovieDetails extends ConsumerStatefulWidget {
   const MovieDetails({
     super.key,
     required this.movieId,
@@ -19,10 +21,10 @@ class MovieDetails extends StatefulWidget {
   final String film;
 
   @override
-  State<MovieDetails> createState() => _MovieDetailsState();
+  ConsumerState<MovieDetails> createState() => _MovieDetailsState();
 }
 
-class _MovieDetailsState extends State<MovieDetails> {
+class _MovieDetailsState extends ConsumerState<MovieDetails> {
   Movie? movie;
 
   List<Widget> recommended = [];
@@ -57,7 +59,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '3/movie/${widget.movieId}',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': Platform.localeName.split('_').join('-'),
+        'language': ref.watch(localeProvider).toString().split('_').join('-'),
       },
     );
 
@@ -105,7 +107,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/recommendations',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': Platform.localeName.split('_').join('-'),
+        'language': ref.watch(localeProvider).toString().split('_').join('-'),
         'page': '1',
       },
     );
@@ -178,7 +180,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       '/3/movie/${widget.movieId}/similar',
       {
         'api_key': dotenv.env['API_KEY'],
-        'language': Platform.localeName.split('_').join('-'),
+        'language': ref.watch(localeProvider).toString().split('_').join('-'),
         'page': '1',
       },
     );

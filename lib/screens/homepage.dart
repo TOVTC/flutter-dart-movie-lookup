@@ -3,16 +3,18 @@ import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
 import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:localization/localization.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
 import 'dart:io';
 
-class Homepage extends StatefulWidget {
+class Homepage extends ConsumerStatefulWidget {
   const Homepage({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  ConsumerState<Homepage> createState() => _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends ConsumerState<Homepage> {
   final _formKey = GlobalKey<FormState>();
   var _searchTerm = '';
 
@@ -79,7 +81,7 @@ class _HomepageState extends State<Homepage> {
                                   '/3/search/movie',
                                   {
                                     'api_key': dotenv.env['API_KEY'],
-                                    'language': Platform.localeName.split('_').join('-'),
+                                    'language': ref.watch(localeProvider).toString().split('_').join('-'),
                                     'query': _searchTerm,
                                     'page': '1',
                                     'include_adult': 'false'
