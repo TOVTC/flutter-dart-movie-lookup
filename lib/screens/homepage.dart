@@ -20,6 +20,7 @@ class _HomepageState extends ConsumerState<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    String locale = ref.watch(localeProvider).toString().split('_').join('-');
 
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +82,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                                   '/3/search/movie',
                                   {
                                     'api_key': dotenv.env['API_KEY'],
-                                    'language': ref.watch(localeProvider).toString().split('_').join('-'),
+                                    'language': locale,
                                     'query': _searchTerm,
                                     'page': '1',
                                     'include_adult': 'false'

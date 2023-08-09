@@ -13,6 +13,8 @@ class OptionsDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String locale = ref.watch(localeProvider).toString().split('_').join('-');
+
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -66,7 +68,7 @@ class OptionsDrawer extends ConsumerWidget {
                           '/3/trending/movie/day',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
+                            'language': locale,
                             'page': '1',
                           },
                         ),
@@ -92,7 +94,7 @@ class OptionsDrawer extends ConsumerWidget {
                           '/3/movie/popular',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
+                            'language': locale,
                             'page': '1',
                           },
                         ),
@@ -118,7 +120,7 @@ class OptionsDrawer extends ConsumerWidget {
                           '/3/movie/top_rated',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
+                            'language': locale,
                             'page': '1',
                           },
                         ),
@@ -144,7 +146,7 @@ class OptionsDrawer extends ConsumerWidget {
                           '/3/movie/now_playing',
                           {
                             'api_key': dotenv.env['API_KEY'],
-                            'language': ref.watch(localeProvider).toString().split('_').join('-'),
+                            'language': locale,
                             'page': '1',
                           },
                         ),
@@ -154,6 +156,21 @@ class OptionsDrawer extends ConsumerWidget {
                 },
               ),
               const SizedBox(height: 20),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                onPressed: () {
+                  ref.read(localeProvider.notifier).setLocale();
+                },
+                child: Text(
+                  "change-language".i18n(),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.surface),
+                ),
+              ),
             ],
           ),
         ),

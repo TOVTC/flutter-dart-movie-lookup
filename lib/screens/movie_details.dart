@@ -6,9 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
-import 'dart:io';
 
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
