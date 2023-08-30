@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dart_movie_lookup/providers/locale_provider.dart';
+import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -17,6 +18,12 @@ void main() async {
       child: App(),
     ),
   );
+
+  FlutterError.demangleStackTrace = (StackTrace stack) {
+    if (stack is stack_trace.Trace) return stack.vmTrace;
+    if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
+    return stack;
+  };
 }
 
 class App extends ConsumerWidget {
@@ -35,8 +42,8 @@ class App extends ConsumerWidget {
         LocalJsonLocalization.delegate
       ],
       supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('es', 'ES'),
+        Locale('en'),
+        Locale('es'),
       ],
       theme: theme.copyWith(
         useMaterial3: true,
