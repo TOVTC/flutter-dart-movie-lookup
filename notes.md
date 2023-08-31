@@ -1,5 +1,8 @@
+## Deploying to App Store
+Follow instructions from the official flutter [documentation](https://docs.flutter.dev/deployment/ios) and [this](https://www.youtube.com/watch?v=i3BEo-jxxRo&ab_channel=TechJarves) video optionally
+
 ## Deploying to Google Play
-Following instructions from [this](https://www.youtube.com/watch?v=ieOdT-p603Y&ab_channel=ShohruhAK) tutorial by Shohruh AK, with written instructions [here](https://www.shohruhak.com/tech/how_to_publish_flutter_app_on_play_store_beginner_guide/) in conjunction with [this](https://docs.flutter.dev/deployment/android) official Flutter documentation</br></br>
+Following instructions from [this](https://www.youtube.com/watch?v=ieOdT-p603Y&ab_channel=ShohruhAK) tutorial by Shohruh AK, with written instructions [here](https://www.shohruhak.com/tech/how_to_publish_flutter_app_on_play_store_beginner_guide/) in conjunction with [this](https://docs.flutter.dev/deployment/android) official Flutter documentation
 
 ### Signing the App
 

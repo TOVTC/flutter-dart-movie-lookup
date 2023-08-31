@@ -2,7 +2,7 @@
   # Flutter Movie Lookup
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)</br></br>
     
-  Powered by the TMDB api, this Flutter/Dart application hosts a simple Android OS application that allows users to search for and view details of movies.
+  Powered by the TMDB api, this Flutter/Dart application hosts a simple Android OS and Apple iOS application that allows users to search for and view details of movies.
   
   ## Table of Contents
   * [Bonus Features](#features)
@@ -17,12 +17,13 @@
   This application also features bilingual language support for English (en-US) and Spanish (es-ES). (Translations unfortunately provided by Google Translate, please don't come for me 🥺)
   
   ## Installation<a name="installation"></a>
-  To view this application, ensure that you have installed Android Studio. After cloning the repository, launch the emulator from VS Code using ctrl + shift + p and press f5 to run the application debug mode.
+  To view this application, ensure that you have installed Android Studio or xCode. After cloning the repository, create a .env file in the root directory of the project with a TMDB api key called "API_KEY". Use the commands "flutter clean" and "flutter pub get" to clear and install all dependencies. Then, if on Android, launch the emulator from VS Code using ctrl + shift + p and press f5 to run the application debug mode or launch the simulator using xCode and use the command "flutter run" to start the application.
   
   ## Built With<a name="built"></a>
   * Flutter
   * Dart
   * Android Studio
+  * xCode
   * TMDB api
   * flutter_dotenv
   * flutter_svg
