@@ -129,6 +129,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             id: movie['id'],
             title: movie['title'],
             releaseDate: movie['release_date'] ?? '',
+            posterPath: movie['poster_path'] ?? ''
           ),
         );
       }
@@ -203,6 +204,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             id: movie['id'],
             title: movie['title'],
             releaseDate: movie['release_date'] ?? '',
+            posterPath: movie['poster_path'] ?? ''
           ),
         );
       }

@@ -43,6 +43,7 @@ class _MovieListState extends State<MovieList> {
               id: movie['id'],
               title: movie['title'],
               releaseDate: movie['release_date'] ?? '',
+              posterPath: movie['poster_path'] ?? ''
             ),
           );
         }
