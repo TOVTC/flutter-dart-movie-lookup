@@ -7,10 +7,10 @@
     "error": "Algo salió mal",
     "no-results": "Nada que mostrar",
     "loading": "Cargando...",
-    "powered-by": "Energizado por...",
+    "powered-by": "Desarrollado (pero no respaldado) por...",
     "trending": "Tendencias",
     "popular": "Popular",
-    "top-rated": "Los Más Valorados",
+    "top-rated": "Los Más Populares",
     "now-playing": "Jugando Ahora",
     "release-date": "Fecha de Lanzamiento",
     "runtime": "Tiempo de Ejecución",
@@ -20,5 +20,5 @@
     "synopsis": "Sinopsis",
     "recommended-films": "Películas Recomendadas",
     "similar-films": "Películas Similares",
-    "change-language": "English (en_US)"
+    "change-language": "English (en)"
 }

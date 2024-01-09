@@ -25,7 +25,11 @@ class OptionsDrawer extends ConsumerWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Text('powered-by'.i18n()),
+                      child: Text(
+                        'powered-by'.i18n(),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 11),
+                      ),
                     ),
                     SvgPicture.asset(
                       'assets/tmdb.svg',

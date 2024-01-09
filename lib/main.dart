@@ -34,6 +34,7 @@ class App extends ConsumerWidget {
     LocalJsonLocalization.delegate.directories = ['lib/i18n'];
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       locale: ref.watch(localeProvider),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/screens/movie_list.dart';
+import 'package:flutter_dart_movie_lookup/widgets/app_bar.dart';
 import 'package:flutter_dart_movie_lookup/widgets/options_drawer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:localization/localization.dart';
@@ -22,23 +23,7 @@ class _HomepageState extends ConsumerState<Homepage> {
     String locale = ref.watch(localeProvider).toString().split('_').join('-');
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            const Icon(Icons.movie_creation),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              'movie-lookup'.i18n(),
-              style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: const LookupAppBar(),
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),

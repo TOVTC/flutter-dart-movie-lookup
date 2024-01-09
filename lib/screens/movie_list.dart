@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
+import '../widgets/app_bar.dart';
 import '../widgets/options_drawer.dart';
 import '../widgets/results.dart';
 
@@ -62,23 +63,7 @@ class _MovieListState extends State<MovieList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            const Icon(Icons.movie_creation),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              'movie-lookup'.i18n(),
-              style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: const LookupAppBar(),
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),

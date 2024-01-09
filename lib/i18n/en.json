@@ -7,7 +7,7 @@
     "error": "Something went wrong",
     "no-results": "Nothing to display",
     "loading": "Loading...",
-    "powered-by": "Powered by...",
+    "powered-by": "Powered (but not endorsed) by...",
     "trending": "Trending",
     "popular": "Popular",
     "top-rated": "Top Rated",
@@ -20,5 +20,5 @@
     "synopsis": "Synopsis",
     "recommended-films": "Recommended Films",
     "similar-films": "Similar Films",
-    "change-language": "Spanish (es_ES)"
+    "change-language": "Spanish (es)"
 }
