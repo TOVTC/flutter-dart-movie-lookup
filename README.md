@@ -47,7 +47,7 @@
   Special thanks to ASH's answer [here](https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv) on debugging .env errors</br>
   Alexander's response [here](https://stackoverflow.com/questions/50923906/how-to-get-timezone-language-and-county-id-in-flutter-by-the-location-of-device) on retrieving the locale of the current device </br>
   My Car's answer [here](https://stackoverflow.com/questions/73591769/got-a-stack-frame-from-packagestack-trace-where-a-vm-or-web-frame-was-expected) on stack track errors </br>
-  And DolDurma's answer edited by Mirko Raimo [here](https://stackoverflow.com/questions/52678469/the-appbardesign-cant-be-assigned-to-the-parameter-type-preferredsizewidget)
+  And Akif's answer [here](https://stackoverflow.com/questions/69367997/how-to-cache-an-image-in-flutter) on caching images
 
   
   Made by [TOVTC](https://github.com/TOVTC).
