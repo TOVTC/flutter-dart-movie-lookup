@@ -44,7 +44,7 @@ class _ResultsState extends ConsumerState<Results> {
             padding: const EdgeInsets.all(8),
             child: Row(
               children: [
-                Container(margin: EdgeInsets.only(right: 10), child: widget.searchResults[index].posterPath != ''
+                Container(margin: const EdgeInsets.only(right: 10), child: widget.searchResults[index].posterPath != ''
                     ? Image.network(
                         'https://image.tmdb.org/t/p/original${widget.searchResults[index].posterPath}',
                         width: 20,
@@ -55,8 +55,8 @@ class _ResultsState extends ConsumerState<Results> {
                       ),),
                 Text(
                   widget.searchResults[index].releaseDate != ''
-                      ? '${truncateString(MediaQuery.of(context).size.width * (0.6), widget.searchResults[index].title, null)} (${widget.searchResults[index].releaseDate.split('-')[0]})'
-                      : truncateString(MediaQuery.of(context).size.width * (0.6), widget.searchResults[index].title, null),
+                      ? '${truncateString(MediaQuery.of(context).size.width * (0.5), widget.searchResults[index].title, null)} (${widget.searchResults[index].releaseDate.split('-')[0]})'
+                      : truncateString(MediaQuery.of(context).size.width * (0.5), widget.searchResults[index].title, null),
                   key: ValueKey(index),
                 ),
               ],

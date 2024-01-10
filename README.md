@@ -14,7 +14,7 @@
   * [Contact](#questions)
   
   ## Bonus Features<a name="features"></a>
-  This application also features bilingual language support for English (en-US) and Spanish (es-ES). (Translations unfortunately provided by Google Translate, please don't come for me 🥺)
+  This application also features bilingual language support for English (en) and Spanish (es).
   
   ## Installation<a name="installation"></a>
   To view this application, ensure that you have installed Android Studio or xCode. After cloning the repository, create a .env file in the root directory of the project with a TMDB api key called "API_KEY". Use the commands "flutter clean" and "flutter pub get" to clear and install all dependencies. Then, if on Android, launch the emulator from VS Code using ctrl + shift + p and press f5 to run the application debug mode or launch the simulator using xCode and use the command "flutter run" to start the application.
@@ -46,7 +46,8 @@
   This application is powered but not endorsed or certified by the TMDB api.</br>
   Special thanks to ASH's answer [here](https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv) on debugging .env errors</br>
   Alexander's response [here](https://stackoverflow.com/questions/50923906/how-to-get-timezone-language-and-county-id-in-flutter-by-the-location-of-device) on retrieving the locale of the current device </br>
-  And My Car's answer [here](https://stackoverflow.com/questions/73591769/got-a-stack-frame-from-packagestack-trace-where-a-vm-or-web-frame-was-expected) on stack track errors
+  My Car's answer [here](https://stackoverflow.com/questions/73591769/got-a-stack-frame-from-packagestack-trace-where-a-vm-or-web-frame-was-expected) on stack track errors </br>
+  And DolDurma's answer edited by Mirko Raimo [here](https://stackoverflow.com/questions/52678469/the-appbardesign-cant-be-assigned-to-the-parameter-type-preferredsizewidget)
 
   
   Made by [TOVTC](https://github.com/TOVTC).

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
+import 'package:flutter_dart_movie_lookup/utils/truncate_string.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
@@ -34,6 +35,8 @@ class _MovieDetailsState extends State<MovieDetails> {
   bool _error = false;
   bool _recError = false;
   bool _simError = false;
+
+  double? width;
 
   // retrieves "name" property from genre, language, and company sub-objects
   List<String> _parseObjects(String propName, List<dynamic> data) {
@@ -126,11 +129,10 @@ class _MovieDetailsState extends State<MovieDetails> {
       for (final movie in decoded['results']) {
         recommendedResults.add(
           MovieOption(
-            id: movie['id'],
-            title: movie['title'],
-            releaseDate: movie['release_date'] ?? '',
-            posterPath: movie['poster_path'] ?? ''
-          ),
+              id: movie['id'],
+              title: movie['title'],
+              releaseDate: movie['release_date'] ?? '',
+              posterPath: movie['poster_path'] ?? ''),
         );
       }
 
@@ -152,11 +154,27 @@ class _MovieDetailsState extends State<MovieDetails> {
               padding: const EdgeInsets.all(5),
               child: Container(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  link.releaseDate != ''
-                      ? '${link.title} (${link.releaseDate.split('-')[0]})'
-                      : link.title,
-                  key: ValueKey(link.id),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: link.posterPath != ''
+                          ? Image.network(
+                              'https://image.tmdb.org/t/p/original${link.posterPath}',
+                              width: 20,
+                            )
+                          : Image.asset(
+                              './assets/favicon.png',
+                              width: 20,
+                            ),
+                    ),
+                    Text(
+                      link.releaseDate != ''
+                          ? '${truncateString(width! * (0.5), link.title, null)} (${link.releaseDate.split('-')[0]})'
+                          : truncateString(width! * (0.5), link.title, null),
+                      key: ValueKey(link.id),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -201,11 +219,10 @@ class _MovieDetailsState extends State<MovieDetails> {
       for (final movie in decoded['results']) {
         similarResults.add(
           MovieOption(
-            id: movie['id'],
-            title: movie['title'],
-            releaseDate: movie['release_date'] ?? '',
-            posterPath: movie['poster_path'] ?? ''
-          ),
+              id: movie['id'],
+              title: movie['title'],
+              releaseDate: movie['release_date'] ?? '',
+              posterPath: movie['poster_path'] ?? ''),
         );
       }
 
@@ -227,11 +244,27 @@ class _MovieDetailsState extends State<MovieDetails> {
               padding: const EdgeInsets.all(5),
               child: Container(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  link.releaseDate != ''
-                      ? '${link.title} (${link.releaseDate.split('-')[0]})'
-                      : link.title,
-                  key: ValueKey(link.id),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: link.posterPath != ''
+                          ? Image.network(
+                              'https://image.tmdb.org/t/p/original${link.posterPath}',
+                              width: 20,
+                            )
+                          : Image.asset(
+                              './assets/favicon.png',
+                              width: 20,
+                            ),
+                    ),
+                    Text(
+                      link.releaseDate != ''
+                          ? '${truncateString(width! * (0.5), link.title, null)} (${link.releaseDate.split('-')[0]})'
+                          : truncateString(width! * (0.5), link.title, null),
+                      key: ValueKey(link.id),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -534,7 +567,7 @@ class _MovieDetailsState extends State<MovieDetails> {
 
     return LayoutBuilder(
       builder: (ctx, constraints) {
-        final width = constraints.maxWidth;
+        width = constraints.maxWidth;
 
         return Scaffold(
           appBar: const LookupAppBar(),
@@ -566,7 +599,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       ),
                     ],
                   )
-                : (width >= 600 ? horizontalContent : verticalContent),
+                : (width! >= 600 ? horizontalContent : verticalContent),
           ),
         );
       },
