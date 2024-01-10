@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:flutter_dart_movie_lookup/screens/movie_details.dart';
@@ -50,8 +51,10 @@ class _ResultsState extends ConsumerState<Results> {
                 Container(
                   margin: const EdgeInsets.only(right: 10),
                   child: widget.searchResults[index].posterPath != ''
-                      ? Image.network(
-                          'https://image.tmdb.org/t/p/original${widget.searchResults[index].posterPath}',
+                      ? CachedNetworkImage(
+                          imageUrl: 'https://image.tmdb.org/t/p/original${widget.searchResults[index].posterPath}',
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
                           width: 20,
                         )
                       : Image.asset(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
@@ -157,8 +158,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       margin: const EdgeInsets.only(right: 10),
                       child: link.posterPath != ''
-                          ? Image.network(
-                              'https://image.tmdb.org/t/p/original${link.posterPath}',
+                          ? CachedNetworkImage(
+                              imageUrl: 'https://image.tmdb.org/t/p/original${link.posterPath}',
+                              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
                               width: 20,
                             )
                           : Image.asset(
@@ -247,8 +250,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                     Container(
                       margin: const EdgeInsets.only(right: 10),
                       child: link.posterPath != ''
-                          ? Image.network(
-                              'https://image.tmdb.org/t/p/original${link.posterPath}',
+                          ? CachedNetworkImage(
+                              imageUrl: 'https://image.tmdb.org/t/p/original${link.posterPath}',
+                              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
                               width: 20,
                             )
                           : Image.asset(
@@ -321,8 +326,10 @@ class _MovieDetailsState extends State<MovieDetails> {
               Semantics(
                 label: '${movie!.title} movie poster',
                 child: movie!.posterPath != ''
-                    ? Image.network(
-                        'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                    ? CachedNetworkImage(
+                        imageUrl: 'https://image.tmdb.org/t/p/original${movie!.posterPath}',
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                         width: 200,
                       )
                     : Image.asset(
