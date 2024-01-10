@@ -60,6 +60,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (ctx) => MovieList(
+                                icon: const Icon(Icons.search),
                                 pageTitle: 'search-results-title'.i18n([_searchTerm]),
                                 url: Uri.https(
                                   'api.themoviedb.org',

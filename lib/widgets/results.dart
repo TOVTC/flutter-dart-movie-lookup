@@ -11,10 +11,12 @@ class Results extends ConsumerStatefulWidget {
     super.key,
     required this.pageTitle,
     required this.searchResults,
+    required this.icon
   });
 
   final String pageTitle;
   final List<MovieOption> searchResults;
+  final Icon icon;
 
   @override
   ConsumerState<Results> createState() => _ResultsState();
@@ -35,7 +37,8 @@ class _ResultsState extends ConsumerState<Results> {
                 builder: (ctx) => MovieDetails(
                   movieId: widget.searchResults[index].id,
                   film: widget.searchResults[index].title,
-                  locale: ref.watch(localeProvider).toString().split('_').join('-'),
+                  locale:
+                      ref.watch(localeProvider).toString().split('_').join('-'),
                 ),
               ),
             );
@@ -44,19 +47,25 @@ class _ResultsState extends ConsumerState<Results> {
             padding: const EdgeInsets.all(8),
             child: Row(
               children: [
-                Container(margin: const EdgeInsets.only(right: 10), child: widget.searchResults[index].posterPath != ''
-                    ? Image.network(
-                        'https://image.tmdb.org/t/p/original${widget.searchResults[index].posterPath}',
-                        width: 20,
-                      )
-                    : Image.asset(
-                        './assets/favicon.png',
-                        width: 20,
-                      ),),
+                Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: widget.searchResults[index].posterPath != ''
+                      ? Image.network(
+                          'https://image.tmdb.org/t/p/original${widget.searchResults[index].posterPath}',
+                          width: 20,
+                        )
+                      : Image.asset(
+                          './assets/favicon.png',
+                          width: 20,
+                        ),
+                ),
                 Text(
                   widget.searchResults[index].releaseDate != ''
                       ? '${truncateString(MediaQuery.of(context).size.width * (0.5), widget.searchResults[index].title, null)} (${widget.searchResults[index].releaseDate.split('-')[0]})'
-                      : truncateString(MediaQuery.of(context).size.width * (0.5), widget.searchResults[index].title, null),
+                      : truncateString(
+                          MediaQuery.of(context).size.width * (0.5),
+                          widget.searchResults[index].title,
+                          null),
                   key: ValueKey(index),
                 ),
               ],
@@ -68,12 +77,20 @@ class _ResultsState extends ConsumerState<Results> {
     return content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.pageTitle,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 10),
+              child: widget.icon,
+            ),
+            Text(
+              widget.pageTitle,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 15),
         Expanded(

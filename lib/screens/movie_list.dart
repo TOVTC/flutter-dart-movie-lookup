@@ -12,10 +12,12 @@ class MovieList extends StatefulWidget {
     super.key,
     required this.pageTitle,
     required this.url,
+    required this.icon,
   });
 
   final String pageTitle;
   final Uri url;
+  final Icon icon;
 
   @override
   State<MovieList> createState() => _MovieListState();
@@ -95,6 +97,7 @@ class _MovieListState extends State<MovieList> {
                 ],
               )
             : Results(
+                icon: widget.icon,
                 pageTitle: widget.pageTitle,
                 searchResults: searchResults,
               ),

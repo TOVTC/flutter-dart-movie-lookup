@@ -65,6 +65,7 @@ class OptionsDrawer extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) => MovieList(
+                        icon: const Icon(Icons.trending_up),
                         pageTitle: '${'trending'.i18n()}:',
                         url: Uri.https(
                           'api.themoviedb.org',
@@ -91,6 +92,7 @@ class OptionsDrawer extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) => MovieList(
+                        icon: const Icon(Icons.thumb_up),
                         pageTitle: '${'popular'.i18n()}:',
                         url: Uri.https(
                           'api.themoviedb.org',
@@ -117,6 +119,7 @@ class OptionsDrawer extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) => MovieList(
+                        icon: const Icon(Icons.star),
                         pageTitle: '${'top-rated'.i18n()}:',
                         url: Uri.https(
                           'api.themoviedb.org',
@@ -143,6 +146,7 @@ class OptionsDrawer extends ConsumerWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) => MovieList(
+                        icon: const Icon(Icons.play_arrow),
                         pageTitle: '${'now-playing'.i18n()}:',
                         url: Uri.https(
                           'api.themoviedb.org',
