@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dart_movie_lookup/models/movie_option.dart';
 import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
-import '../widgets/app_bar.dart';
 import '../widgets/options_drawer.dart';
 import '../widgets/results.dart';
 
@@ -42,11 +41,10 @@ class _MovieListState extends State<MovieList> {
         for (final movie in decoded['results']) {
           searchResults.add(
             MovieOption(
-              id: movie['id'],
-              title: movie['title'],
-              releaseDate: movie['release_date'] ?? '',
-              posterPath: movie['poster_path'] ?? ''
-            ),
+                id: movie['id'],
+                title: movie['title'],
+                releaseDate: movie['release_date'] ?? '',
+                posterPath: movie['poster_path'] ?? ''),
           );
         }
       });
@@ -66,7 +64,23 @@ class _MovieListState extends State<MovieList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const LookupAppBar(),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            const Icon(Icons.movie_creation),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              'movie-lookup'.i18n(),
+              style: const TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
       drawer: const OptionsDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(25),
@@ -75,12 +89,20 @@ class _MovieListState extends State<MovieList> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      widget.pageTitle,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          child: widget.icon,
+                        ),
+                        Text(
+                          widget.pageTitle,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 15),

@@ -8,8 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:localization/localization.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../widgets/app_bar.dart';
-
 class MovieDetails extends StatefulWidget {
   const MovieDetails({
     super.key,
@@ -570,7 +568,23 @@ class _MovieDetailsState extends State<MovieDetails> {
         width = constraints.maxWidth;
 
         return Scaffold(
-          appBar: const LookupAppBar(),
+          appBar: AppBar(
+            title: Row(
+              children: [
+                const Icon(Icons.movie_creation),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'movie-lookup'.i18n(),
+                  style: const TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(25),
             child: _error
