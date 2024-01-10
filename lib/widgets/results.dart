@@ -74,7 +74,7 @@ class _ResultsState extends ConsumerState<Results> {
         ),
       );
     }
-    return content = Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
@@ -83,11 +83,13 @@ class _ResultsState extends ConsumerState<Results> {
               margin: const EdgeInsets.only(right: 10),
               child: widget.icon,
             ),
-            Text(
-              widget.pageTitle,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Text(
+                widget.pageTitle,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
