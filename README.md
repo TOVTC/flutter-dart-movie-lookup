@@ -31,6 +31,7 @@
   * flutter_localizations
   * localization
   * flutter_riverpod
+  * flutter cached_network_image
 
   ## Usage Information<a name="usage"></a>
   
@@ -47,7 +48,9 @@
   Special thanks to ASH's answer [here](https://stackoverflow.com/questions/67920555/filenotfounderror-with-flutter-dotenv) on debugging .env errors</br>
   Alexander's response [here](https://stackoverflow.com/questions/50923906/how-to-get-timezone-language-and-county-id-in-flutter-by-the-location-of-device) on retrieving the locale of the current device </br>
   My Car's answer [here](https://stackoverflow.com/questions/73591769/got-a-stack-frame-from-packagestack-trace-where-a-vm-or-web-frame-was-expected) on stack track errors </br>
-  And Akif's answer [here](https://stackoverflow.com/questions/69367997/how-to-cache-an-image-in-flutter) on caching images
+  Akif's answer [here](https://stackoverflow.com/questions/69367997/how-to-cache-an-image-in-flutter) on caching images</br>
+  Fiury's answer [here](https://stackoverflow.com/questions/51930754/flutter-wrapping-text) on wrapping text</br>
+  user3710617's answer [here](https://stackoverflow.com/questions/7633639/android-how-to-set-all-uses-permission) edited by brasofilo for placement of Android app permissions
 
   
   Made by [TOVTC](https://github.com/TOVTC).

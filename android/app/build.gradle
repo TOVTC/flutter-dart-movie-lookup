@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.movie.lookup"
+    namespace "com.example.flutter_dart_movie_lookup"
     compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 

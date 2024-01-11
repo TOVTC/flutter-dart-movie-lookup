@@ -171,8 +171,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                     ),
                     Text(
                       link.releaseDate != ''
-                          ? '${truncateString(width! * (0.5), link.title, null)} (${link.releaseDate.split('-')[0]})'
-                          : truncateString(width! * (0.5), link.title, null),
+                          ? '${truncateString((width! >= 600 ? width! * 0.5 * 0.5 : width! * 0.5), link.title, null)} (${link.releaseDate.split('-')[0]})'
+                          : truncateString((width! >= 600 ? width! * 0.5 * 0.5 : width! * 0.5), link.title, null),
                       key: ValueKey(link.id),
                     ),
                   ],
@@ -263,8 +263,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                     ),
                     Text(
                       link.releaseDate != ''
-                          ? '${truncateString(width! * (0.5), link.title, null)} (${link.releaseDate.split('-')[0]})'
-                          : truncateString(width! * (0.5), link.title, null),
+                          ? '${truncateString((width! >= 600 ? width! * 0.5 * 0.5 : width! * 0.5), link.title, null)} (${link.releaseDate.split('-')[0]})'
+                          : truncateString((width! >= 600 ? width! * 0.5 * 0.5 : width! * 0.5), link.title, null),
                       key: ValueKey(link.id),
                     ),
                   ],
